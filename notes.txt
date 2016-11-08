@@ -1,0 +1,3 @@
+C:\Users\310267627\AppData\Local\atom\app-1.11.2
+
+$ git config --global core.editor "'C:\Users\310267627\AppData\Local\atom\app-1.11.2\atom.exe' -multiInst -nosession"
