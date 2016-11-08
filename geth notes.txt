@@ -1,0 +1,68 @@
+----------THIS FILE IS MORE RECENT THAN ethnotes.txt !!!
+
+
+*Create private blockchain https://github.com/ethereum/homestead-guide/blob/master/source/network/test-networks.rst
+geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain/chainData" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /Users/fergalaz/myPrivateChain/CustomGenesis.json console
+-windows:
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init c:/myPrivateChain/CustomGenesis.json console
+
+
+*Launch the node
+geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain/chainData" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
+-For windows:
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
+
+
+enode my Mac
+admin.addPeer("enode://5a1a9aaf439fa3e298c821c4a88721e0cc9a37d9607483cc7b9ecc83cc580aa83e5bb1a39d2a76ba1e7084f050924513581fca71e7a7668f4721e63c4bb9a294@[::]:30303")
+
+*Location of my blockchain
+/Users/fergalaz/myPrivateChain/
+c:/myPrivateChain
+
+
+*Accounts
+fernando 0x296bdcbff46fcfcb9432e4546133357a652c2a57
+windows: fernando "0x4b306668a147951526918da5240432ad67f967c0"
+
+*new account
+personal.newAccount()
+
+*Assign an account to a variable:
+var myaccount = eth.accounts[0]
+
+*Get balance:
+eth.getBalance(myaccount)
+balance = web3.fromWei(eth.getBalance(myacc), "ether");
+
+*Set account as etherbase
+miner.setEtherbase(personal.listAccounts[0])
+
+*unlock account to spend balance on gas (must do before submitting transactions):
+personal.unlockAccount(eth.coinbase)
+
+*which account is my coinbase
+eth.coinbase
+
+*List of accounts
+eth.accounts
+
+
+*Use miner
+miner.start()
+miner.stop()
+*On running miner to pick up transactions:
+http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#writing-a-contract
+
+
+
+*Run a second instance of geth
+geth attach ipc:/Users/fergalaz/myPrivateChain/chainData/geth.ipc
+http://ethereum.stackexchange.com/questions/5784/geth-ignoring-ipcpath-in-linux-with-attach-and-datadir
+
+*On running/stop miner to pick up transactions:
+http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#writing-a-contract
+
+
+greeter example!
+> Contract mined! Address: 0x03565256112aa60862483217d8afc4bcc864ccdf
