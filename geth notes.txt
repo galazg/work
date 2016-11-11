@@ -1,40 +1,45 @@
----UPDATED USING GIT FROM MY MAC
-----------THIS FILE IS MORE RECENT THAN ethnotes.txt !!!
-
+updated 9 nov 16 8pm from my mac
 
 *Create private blockchain https://github.com/ethereum/homestead-guide/blob/master/source/network/test-networks.rst
+os x:
 geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain/chainData" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /Users/fergalaz/myPrivateChain/CustomGenesis.json console
 -windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init c:/myPrivateChain/CustomGenesis.json console
+-Amazon server (ubuntu)
+geth --identity "privateNet1" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/ubuntu/private_net1" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid  1984 --nat "any" init /home/ubuntu/private_net1/CustomGenesis.json console
 
 
 *Launch the node
-geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain/chainData" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
--For windows:
+-os x:
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --mine --minerthreads=1 console
+-Windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
+-Amazon server (ubuntu)
+geth --identity "privateNet1" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/ubuntu/private_net1" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
 
-
-enode my Mac
-admin.addPeer("enode://5a1a9aaf439fa3e298c821c4a88721e0cc9a37d9607483cc7b9ecc83cc580aa83e5bb1a39d2a76ba1e7084f050924513581fca71e7a7668f4721e63c4bb9a294@[::]:30303")
 
 *Location of my blockchain
 /Users/fergalaz/myPrivateChain/
 c:/myPrivateChain
+-Amazon server
+/home/ubuntu/private_net1
+/usr/bin/solc
 
 
-*Accounts
-fernando 0x296bdcbff46fcfcb9432e4546133357a652c2a57
+*Accounts:
 windows: fernando "0x4b306668a147951526918da5240432ad67f967c0"
+-on MAC as of 10 Nov 16:
+fernando "0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73"
+jonathan 0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c
+
+
+-Amazon:
+"fernando" "0xd815ccbf0c595cf91d2d24d41aab85a17f8f83ce"
+
 
 *new account
 personal.newAccount()
-
-*Assign an account to a variable:
 var myaccount = eth.accounts[0]
-
-*Get balance:
-eth.getBalance(myaccount)
-balance = web3.fromWei(eth.getBalance(myacc), "ether");
 
 *Set account as etherbase
 miner.setEtherbase(personal.listAccounts[0])
@@ -42,11 +47,16 @@ miner.setEtherbase(personal.listAccounts[0])
 *unlock account to spend balance on gas (must do before submitting transactions):
 personal.unlockAccount(eth.coinbase)
 
+*Get balance:
+eth.getBalance(myaccount)
+balance = web3.fromWei(eth.getBalance(myacc), "ether");
+
 *which account is my coinbase
 eth.coinbase
 
 *List of accounts
 eth.accounts
+personal.listAccounts
 
 
 *Use miner
@@ -56,14 +66,24 @@ miner.stop()
 http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#writing-a-contract
 
 
-
 *Run a second instance of geth
 geth attach ipc:/Users/fergalaz/myPrivateChain/chainData/geth.ipc
 http://ethereum.stackexchange.com/questions/5784/geth-ignoring-ipcpath-in-linux-with-attach-and-datadir
 
-*On running/stop miner to pick up transactions:
-http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#writing-a-contract
+// shows transaction pool
+txpool.status
+
+*upon a geth crash
+pkill geth
 
 
-greeter example!
-> Contract mined! Address: 0x03565256112aa60862483217d8afc4bcc864ccdf
+---RPC calls
+*eth_coinbase:
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":64}' localhost:8001
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73", "latest"],"id":1}' localhost:8001
+curl localhost:8001 -X POST --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "0x8dc03da3c476926e620fc9efd4c6137a02417354", "data": "0x207c64fb00000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe73"}, "latest"],"id":1}'
+
+-build the DATA parameter!!!
+var callData=myContract.myFunction.getData(parameters)
+pcoin.validate.getData(fer)
+"0x207c64fb00000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe73"

@@ -26,31 +26,38 @@ contract pCoin {
 		balances[payingUser].rightsLevel = rightsLevelReq;
 		return true;
 	}
+  function validate(address user) returns(uint){
+    return balances[user].rightsLevel;
+  }
 }
 
-var pcoinContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendTokens","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"tokens","type":"uint256"},{"name":"rightsLevel","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"payingUser","type":"address"},{"name":"rightsLevelReq","type":"uint256"}],"name":"register","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"type":"constructor"}]);
-var pcoin = pcoinContract.new(
-   {
-     from: web3.eth.accounts[0],
-     data: '60606040525b620f4240600060005060003373ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600050600001600050819055506003600060005060003373ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600050600101600050819055505b61035c8061008c6000396000f360606040526000357c01000000000000000000000000000000000000000000000000000000009004806305ab421d1461005257806327e235e31461008e5780636d705ebb146100c65761004d565b610002565b34610002576100766004808035906020019091908035906020019091905050610102565b60405180821515815260200191505060405180910390f35b34610002576100a960048080359060200190919050506101dd565b604051808381526020018281526020019250505060405180910390f35b34610002576100ea600480803590602001909190803590602001909190505061020a565b60405180821515815260200191505060405180910390f35b600081600060005060003373ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060005060000160005054101561014a57600090506101d7565b81600060005060003373ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060005060000160008282825054039250508190555081600060005060008573ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600050600001600082828250540192505081905550600190506101d7565b92915050565b60006000506020528060005260406000206000915090508060000160005054908060010160005054905082565b60006000600183141561022257603290508050610248565b600283141561023657606490508050610247565b60038314156102465760c8905080505b5b5b80600060005060008673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060005060000160005054101561028e5760009150610355565b80600060005060008673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060005060000160008282825054039250508190555080600060005060003373ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060005060000160008282825054019250508190555082600060005060008673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000506001016000508190555060019150610355565b509291505056',
-     gas: 3000000
-   }, function(e, contract){
-    console.log(e, contract);
-    if (typeof contract.address != 'undefined') {
-         console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
-    }
- })
 
-2nd pcoin Deployed to:
+--Addesses where contracts were deployed:----- interface = ABI
+
+*3rd pcoin deployed to:   (added validate function)
+var pCoindAdd = "0x8dc03da3c476926e620fc9efd4c6137a02417354"
+var interface = [{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendTokens","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"user","type":"address"}],"name":"validate","outputs":[{"name":"level","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"tokens","type":"uint256"},{"name":"rightsLevel","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"payingUser","type":"address"},{"name":"rightsLevelReq","type":"uint256"}],"name":"register","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"type":"constructor"}]
+var pcoin = eth.contract(interface).at(pCoinAdd);
+
+
+*2nd pcoin Deployed to:   (fixed sendTokens function)
 var pCoinAdd = "0xadd2da0f29ffdd7b8a49a1acef84ad402adce75f";
 var interface = [{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendTokens","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"tokens","type":"uint256"},{"name":"rightsLevel","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"payingUser","type":"address"},{"name":"rightsLevelReq","type":"uint256"}],"name":"register","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"type":"constructor"}]
 var pcoin = eth.contract(interface).at(pCoinAdd);
 
-1st pcoin Deployed to:
+*1st pcoin Deployed to:   (sendTokens function was wrong, money was deducted from transaction sender, not from paying user)
 var pCoinAdd = "0xb84488c3df7bb064bdf1e03386f8a9a613af01e9";
 var interface = [{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendTokens","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"tokens","type":"uint256"},{"name":"rightsLevel","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"rightsLevelReq","type":"uint256"}],"name":"register","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"type":"constructor"}];
 var pcoin = eth.contract(interface).at(pCoinAdd);
 
 
+--This will do for "validate" the existance of a (user) account and its rightLevels
 pcoin.balances(fer)
+pcoin.balances(fer)[0] //to check rightsLevel only
+
 pcoin.sendTokens.sendTransaction(jon,1000,{from:fer})
+pcoin.register.sendTransaction(jon,3,{from:fer})
+
+listAccounts[]
+0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73
+0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c
