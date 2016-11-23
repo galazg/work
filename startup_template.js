@@ -7,6 +7,14 @@ var interface_ = [{"constant":false,"inputs":[{"name":"receiver","type":"address
 var pcoin = eth.contract(interface_).at(pCoinAdd);
 
 
+//blockchain1
+admin.addPeer("enode://fec2f1d66eaee9d16644fcf1e543eff652a0843b281ff8dc0f78209f9ffd88d3744dece114099f765df3d7bf26c86e392737b136c4069eaa46e7c8b91c3f34d3@35.160.81.200:30303")
+//blockchain2
+admin.addPeer("enode://1e9a3f0da7b3c59b609146928396a56df92a80586fe7846c51462d83f84b59f67c7486f450bcd825134ba6c8261fb86d66981c58eb6576d9ce2ee6262ac59e23@35.162.198.58:30303")
+//blockchain3
+admin.addPeer("enode://ae298c94480f47189dbcb0e8d330c7d2a41d01a82c07f7fa0b6a2247016fe19be2a2527bed9c8fb66e0e4a37e1a457acca0c7ca407c27b91d2604d333311ec00@35.160.136.196:30303")
+
+
 function checkWork() {
     if (eth.getBlock("pending").transactions.length > 0) {
         if (eth.mining) return;
