@@ -2,13 +2,26 @@
 
 import SocketServer
 from BaseHTTPServer import BaseHTTPRequestHandler
+from os import curdir, sep
+
 
 def some_function():
     print "some_function got called"
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(s):
-        if s.path == '/validate':
+        if s.path =='/':
+        	#Open the static file requested and send it
+            s.path = '/test.html'
+            mimetype='text/html'
+            f = open(curdir + sep + s.path)
+            print curdir + sep + s.path
+            s.send_response(200)
+            s.send_header('Content-type',mimetype)
+            s.end_headers()
+            s.wfile.write(f.read())
+            f.close()
+        elif s.path == '/validate':
             # Insert your code here
             print s.path
 

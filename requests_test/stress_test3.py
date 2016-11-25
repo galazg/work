@@ -8,7 +8,7 @@ import time
 
 while True:
 
-    r = requests.get('http://35.160.81.200:8084/reset&mike')
+    r = requests.get('http://35.160.136.196:8084/reset&mike')
     print(r.text)
     time.sleep(5) # delays for 5 seconds
 
