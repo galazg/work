@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h1>Private Blockchain UI</h1>
+<h1>Private Blockchain UI (JSON)</h1>
 
 <p>Username: <input type = "text" id = "user" value = "" /> </p>
 <p>Rights Level: <input type = "text" id = "level" value = "" /> </p>
@@ -11,6 +11,7 @@
 <button type="button" onclick="register()">Register</button>
 <button type="button" onclick="reset()">Reset</button>
 <button type="button" onclick="topup()">Top up</button>
+<button type="button" onclick="test()">TEST!</button>
 <p id="status">Last action performed is displayed here!</p>
 
 
@@ -22,27 +23,40 @@ var host = "http://localhost:" + port;
 //var Web3 = require('web3');
 //var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8084"));
 
+var command_obj = {"command":"", "user":"", "level":"", "tokens":""};
+
+function test(){
+  //document.getElementById("status").innerHTML = command_obj.firstName;
+}
+
+
 function validate(){
-  var user = document.getElementById("user").value;
-  if(user==""){
+  command_obj.command = "validate"
+  command_obj.user = document.getElementById("user").value;
+  if(command_obj.user==""){
     window.alert("Missing data");
     return;
   }
   var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", host, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      document.getElementById("status").innerHTML = "User " + user + " has rights level " + parseInt(obj.result);
-      if(parseInt(obj.result)==0){
-        document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
-      }
+      console.log(obj)
+      console.log(obj.method)
+      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      //document.getElementById("status").innerHTML = "User " + user + " has rights level " + parseInt(obj.result);
+      //if(parseInt(obj.result)==0){
+        //document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
+      //}
     }
   };
-  xhttp.open("GET", "http://localhost:8084/validate&" + user, true);
-  xhttp.send();
+  //xhttp.open("GET", "http://localhost:8084/validate&" + user, true);
+  var data = JSON.stringify(command_obj);
+  //console.log(data)
+  xhttp.send(data);
 }
 
 function register(){
