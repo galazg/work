@@ -17,10 +17,10 @@
 <!-- <script type="text/javascript" src="http://rawgit.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script>  -->
 
 <script>
-var port = "8084";
+var port = "8085";
 var host = "http://localhost:" + port;
 //var Web3 = require('web3');
-//var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8084"));
+//var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8085"));
 
 function validate(){
   var user = document.getElementById("user").value;
@@ -41,7 +41,7 @@ function validate(){
       }
     }
   };
-  xhttp.open("GET", "http://localhost:8084/validate&" + user, true);
+  xhttp.open("GET", "http://localhost:8085/validate&" + user, true);
   xhttp.send();
 }
 
@@ -72,7 +72,7 @@ function register(){
       }
     }
   };
-  xhttp.open("GET", "http://localhost:8084/register&" + user + "=" + level, true);
+  xhttp.open("GET", "http://localhost:8085/register&" + user + "=" + level, true);
   xhttp.send();
 }
 
@@ -95,7 +95,7 @@ function reset(){
       document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
     }
   };
-  xhttp.open("GET", "http://localhost:8084/reset&" + user, true);
+  xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
   xhttp.send();
 }
 
@@ -120,7 +120,7 @@ function topup(){
       document.getElementById("status").innerHTML = amount + " tokens have been sent to user " + user;
     }
   };
-  xhttp.open("GET", "http://localhost:8084/topup&" + user + "=" + amount, true);
+  xhttp.open("GET", "http://localhost:8085/topup&" + user + "=" + amount, true);
   xhttp.send();
 
 

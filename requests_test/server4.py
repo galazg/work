@@ -7,11 +7,26 @@ import requests
 from os import curdir, sep
 import urlparse, json
 
+#host = 'http://bcsvyvr5m.westeurope.cloudapp.azure.com:8545'
+host = 'http://localhost:8001'
+
 pcoin_contract_address = '0xf03f59fa47ec6680a3b6d84c7a62471553b72840'
 fer =  '0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73'
 jon = '0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c'
 mike = '0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f'
 sender = fer
+
+validate_method_hash = '0x207c64fb000000000000000000000000'
+topup_method_hash = '0x05ab421d000000000000000000000000'
+check_money_method_hash = '0xa3825d99000000000000000000000000'
+register_method_hash = '0x6d705ebb000000000000000000000000'
+reset_method_hash = '0x6b8ab97d000000000000000000000000'
+#curl -X POST --data '{"jsonrpc":"2.0","method":"eth_call","params":[{see above}],"id":1}'
+#data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
+
+#call_object = '{ "jsonrpc": "2.0" , "method":"eth_call",   "params": [{"to":"", "data":""}, "latest"], "id":1}'
+#call_object_json = call_object.json()
+#print json.dumps(call_object)
 
 def getAddress(user):
     if user == 'fer':
@@ -77,7 +92,7 @@ class MyHandler(BaseHTTPRequestHandler):
             #this parameter is only for the "validate" method of the contract
             rpc_data = '0x207c64fb000000000000000000000000' + user_address[2:len(user_address)]
             data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
-            r = requests.post('http://localhost:8001', data=data)
+            r = requests.post(host, data=data)
             #response after initial validation
             print r.text
             #get the rightsLevel from the response
@@ -102,7 +117,7 @@ class MyHandler(BaseHTTPRequestHandler):
                 #build data parameter for "checkMoney" RPC call
                 rpc_data = '0xa3825d99000000000000000000000000' + user_address[2:len(user_address)] + '000000000000000000000000000000000000000000000000000000000000000' + level_requested
                 data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
-                r = requests.post('http://localhost:8001', data=data)
+                r = requests.post(host, data=data)
                 result = r.text[len(r.text)-4]
 
                 #if enough money, register
@@ -114,7 +129,7 @@ class MyHandler(BaseHTTPRequestHandler):
                     #send the register transaction!
                     rpc_data = '0x6d705ebb000000000000000000000000' + user_address[2:len(user_address)] + '000000000000000000000000000000000000000000000000000000000000000' + level_requested
                     data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
-                    r = requests.post('http://localhost:8001', data=data)
+                    r = requests.post(host, data=data)
                     print r.text
                 else:
                     self.wfile.write('{"result":"no money"}')
@@ -144,7 +159,7 @@ class MyHandler(BaseHTTPRequestHandler):
             #this parameter is only for the "reset" method of the contract
             rpc_data = '0x6b8ab97d000000000000000000000000' + user_address[2:len(user_address)]
             data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
-            r = requests.post('http://localhost:8001', data=data)
+            r = requests.post(host, data=data)
             print('Balances have been cleared.')
             print r.text
             print self.path
@@ -169,10 +184,9 @@ class MyHandler(BaseHTTPRequestHandler):
             amount_hex_trimmed = amount_hex[amount_hex.find('x')+1:len(amount_hex)]
             amount_hex_padded = '0000000000000000000000000000000000000000000000000000000000000000'
             amount2 = amount_hex_padded[0:len(amount_hex_padded)-len(amount_hex_trimmed)]+amount_hex_trimmed
-            #this parameter is only for the "reset" method of the contract
             rpc_data = '0x05ab421d000000000000000000000000' + user_address[2:len(user_address)] + amount2
             data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
-            r = requests.post('http://localhost:8001', data=data)
+            r = requests.post(host, data=data)
             print('Top up with tokens')
             print self.path
             self.send_response(200)
@@ -191,16 +205,82 @@ class MyHandler(BaseHTTPRequestHandler):
         post_body = self.rfile.read(content_len)
         self.send_response(200)
         self.end_headers()
-        data = json.loads(post_body)
-        # data is the json object received from the web ui
+        data = json.loads(post_body) # data is the json object received from the web ui
+        command = data["command"]
+        user = data["user"]
+        level = data["level"]
+        tokens = data["tokens"]
         print data
-        # this is how the elements of the json object are used
-        print data["command"]
-        # need to construct the json object that will be sent to the geth node, with the parameters received from web ui
+        user_address = getAddress(data["user"])
 
-        #an example of the JSON format to be sent
-        self.wfile.write('{"jsonrpc":"2.0","method":"validate"}')
+        if command == "validate":
+            rpc_data = validate_method_hash + user_address[2:len(user_address)]
+            data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
+            r = requests.post(host, data=data)
+            print r.text
+            contract_response = json.loads(r.text)
+            print int(contract_response["result"],0) #convert result from hex string to int
+            #The response to the web UI
+            self.wfile.write('{"result":"' + str(int(contract_response["result"],0)) +  '"}')
+
+        if command == "topup":
+            # Existance of user is not validated!!!
+            print "tokens to load: " + str(tokens)
+            tokens_param = padded_hex(int(tokens),64)
+            rpc_data = topup_method_hash + user_address[2:len(user_address)] + tokens_param[2:len(tokens_param)]
+            data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
+            r = requests.post(host, data=data)
+            print r.text
+            contract_response = json.loads(r.text)
+            self.wfile.write('{"result":"' + 'ok' +  '"}')
+
+        if command == "register":
+            # Existance of user is not validated!!!
+            # Request to register to a lower level than current is not validated!!!
+            print "Register: " + user + " with level " + level
+            level_param = padded_hex(int(level),64)
+            #Check money first
+            rpc_data = check_money_method_hash + user_address[2:len(user_address)] + level_param[2:len(level_param)]
+            data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
+            r = requests.post(host, data=data)
+            print r.text
+            contract_response = json.loads(r.text)
+            has_money = int(contract_response["result"],0)
+            if has_money == 1:
+                print "User has money, proceed to register"
+                rpc_data = register_method_hash + user_address[2:len(user_address)] + level_param[2:len(level_param)]
+                data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
+                r = requests.post(host, data=data)
+                print r.text
+                contract_response = json.loads(r.text) #not forwarded to the web UI at the moment
+                self.wfile.write('{"result":"' + 'has money' +  '"}')
+            else:
+                print "User has no money"
+                self.wfile.write('{"result":"' + 'no money' +  '"}')
+
+        if command == "reset":
+            rpc_data = reset_method_hash + user_address[2:len(user_address)]
+            data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
+            r = requests.post(host, data=data)
+            print r.text
+            contract_response = json.loads(r.text)
+            self.wfile.write('{"result":"' + 'reset successful' +  '"}')
+
+
         return
 
-httpd = SocketServer.TCPServer(("", 8084), MyHandler)
+def padded_hex(i, l):
+    given_int = i
+    given_len = l
+
+    hex_result = hex(given_int)[2:] # remove '0x' from beginning of str
+    num_hex_chars = len(hex_result)
+    extra_zeros = '0' * (given_len - num_hex_chars) # may not get used..
+
+    return ('0x' + hex_result if num_hex_chars == given_len else
+            '?' * given_len if num_hex_chars > given_len else
+            '0x' + extra_zeros + hex_result if num_hex_chars < given_len else
+            None)
+
+httpd = SocketServer.TCPServer(("", 8085), MyHandler)
 httpd.serve_forever()
