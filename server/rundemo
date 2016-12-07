@@ -1,0 +1,13 @@
+#screen -dmS server
+#screen -dmS geth
+#screen -S server -p 0 -X stuff $'python server6.py\r'
+#screen -S geth -p 0 -X stuff $'pwd\r'
+#screen -S geth -X screen -c
+
+#run server and geth on the same screen session, two windows
+screen -dmS demo
+screen -S demo -X screen -c
+screen -S demo -p 0 -X stuff $'python server6.py\r'
+screen -S demo -p 1 -X stuff $'geth --identity \"myPrivateNode\" --rpc --rpcport \"8001\" --rpccorsdomain \"*\" --datadir \"/Users/fergalaz/myPrivateChain\" --port \"30303\" --nodiscover --ipcapi \"admin,db,eth,debug,miner,net,shh,txpool,personal,web3\" --rpcapi \"db,eth,net,web3\" --autodag --networkid 1984 --nat \"any\" --unlock 0 --password \"/Users/fergalaz/myPrivateChain/password.txt\" --preload \"/Users/fergalaz/myPrivateChain/start.js\" console\r'
+screen -ls
+screen -r demo
