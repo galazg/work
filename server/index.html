@@ -1,6 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=user-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Rights validation with blockchain</title>
+
+  <!-- Bootstrap -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
 <body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="block_interface.js"></script>
 
 <h1>Private Blockchain UI rev 6</h1>
 
@@ -17,180 +40,158 @@
 <p id="status">Last action performed is displayed here!</p>
 
 
-<script>
-var port = "8085";
-var host = "http://localhost:" + port;
-//var host = "http://bcsvyvr5m.westeurope.cloudapp.azure.com:8545";
+<div class="jumbotron">
+  <h1>Register a user</h1>
+  <br>
+  <a class="btn btn-primary btn-md" role="button">Register 1</a>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off" checked> Purple lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Blue lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Yellow lamp
+    </label>
+  </div>
+  <a class="btn btn-warning btn-md" role="button">De-register 1</a>
 
-var command_obj = {"command":"", "user":"", "level":"", "tokens":"", "arg":""};
+  <br>
 
-function on(){
-  var user = document.getElementById("user").value;
-  command_obj.command = "on";
-  command_obj.user = user;
-  command_obj.arg = document.getElementById("color").value;
-  if(user==""){
-    window.alert("Missing data");
-    return;
-  }
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      //document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
-  var data = JSON.stringify(command_obj);
-  xhttp.send(data);
-}
+  <a class="btn btn-primary btn-md" role="button">Register 2</a>
+  <div class="btn-group" data-toggle="buttons">
 
-function off(){
-  var user = document.getElementById("user").value;
-  command_obj.command = "off";
-  command_obj.user = user;
-  if(user==""){
-    window.alert("Missing data");
-    return;
-  }
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      //document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
-  var data = JSON.stringify(command_obj);
-  xhttp.send(data);
-}
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off" checked> Purple lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Blue lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Yellow lamp
+    </label>
+  </div>
+  <a class="btn btn-warning btn-md" role="button">De-register 2</a>
 
-function reset(){
-  var user = document.getElementById("user").value;
-  command_obj.command = "reset";
-  command_obj.user = user;
-  if(user==""){
-    window.alert("Missing data");
-    return;
-  }
+  <br>
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
-  var data = JSON.stringify(command_obj);
-  xhttp.send(data);
-}
+  <a class="btn btn-primary btn-md" role="button">Register 3</a>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off" checked> Purple lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Blue lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Yellow lamp
+    </label>
+  </div>
+  <a class="btn btn-warning btn-md" role="button">De-register 3</a>
+
+</div>
 
 
-function validate(){
-  var user = document.getElementById("user").value;
-  command_obj.command = "validate"
-  command_obj.user = user;
-  if(user==""){
-    window.alert("Missing data");
-    return;
-  }
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      console.log(obj);
-      console.log("User has rights level: " + parseInt(obj.result));
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      document.getElementById("status").innerHTML = "User " + user + " has rights level " + parseInt(obj.result);
-      if(parseInt(obj.result)==0){
-        document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
-      }
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/validate&" + user, true);
-  var data = JSON.stringify(command_obj);
-  //console.log(data)
-  xhttp.send(data);
-}
 
-function topup(){
-  var user = document.getElementById("user").value;
-  var amount = document.getElementById("amount").value;
-  command_obj.command = "topup"
-  command_obj.user = user;
-  command_obj.tokens = amount;
-  if(user=="" || amount==""){
-    window.alert("Missing data");
-    return;
-  }
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      //document.getElementById("status").innerHTML = amount + " tokens have been sent to user " + user;
+<div class="jumbotron">
+  <h1>Validate a user</h1>
+  <br>
+  <a class="btn btn-info btn-md" role="button">Validate 1</a>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off" checked> Purple lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Blue lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Yellow lamp
+    </label>
+  </div>
 
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/topup&" + user + "=" + amount, true);
-  var data = JSON.stringify(command_obj);
-  xhttp.send(data);
-}
+  <br>
 
-function register(){
-  var user = document.getElementById("user").value;
-  var level = document.getElementById("level").value;
-  command_obj.command = "register"
-  command_obj.user = user;
-  command_obj.level = level;
-  if(user=="" || level==""){
-    window.alert("Missing data");
-    return;
-  }
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
-/*      if(obj.result == "already registered") {
-        document.getElementById("status").innerHTML = "Error: user " + user + " was already registered with rights level " + level;
-      }*/
-      if(obj.result == "no money"){
-        document.getElementById("status").innerHTML = "Error: user " + user + " does not exist or does not have enough tokens";
-      }
-      else if(obj.result == "has money"){
-        document.getElementById("status").innerHTML = "User " + user + " is now registered with rights level " + level;
-      }
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/register&" + user + "=" + level, true);
-  var data = JSON.stringify(command_obj);
-  xhttp.send(data);
-}
+  <a class="btn btn-info btn-md" role="button">Validate 2</a>
+  <div class="btn-group" data-toggle="buttons">
 
-</script>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off" checked> Purple lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Blue lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Yellow lamp
+    </label>
+  </div>
+
+  <br>
+
+  <a class="btn btn-info btn-md" role="button">Validate 3</a>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off" checked> Purple lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Blue lamp
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" autocomplete="off"> Yellow lamp
+    </label>
+  </div>
+
+</div>
+
+
+<div class="jumbotron">
+  <h1>Send a command</h1>
+  <br>
+  <h3><span class="label label-default">User 1</span>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off" checked> Purple lamp
+      </label>
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off"> Blue lamp
+      </label>
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off"> Yellow lamp
+      </label>
+    </div>
+    <span class="label label-success">Status</span>
+  </h3>
+  <h3><span class="label label-default">User 2</span>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off" checked> Purple lamp
+      </label>
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off"> Blue lamp
+      </label>
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off"> Yellow lamp
+      </label>
+    </div>
+    <span class="label label-success">Status</span>
+  </h3>
+  <h3><span class="label label-default">User 3</span>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off" checked> Purple lamp
+      </label>
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off"> Blue lamp
+      </label>
+      <label class="btn btn-default">
+        <input type="checkbox" autocomplete="off"> Yellow lamp
+      </label>
+    </div>
+    <span class="label label-success">Status</span>
+  </h3>
+
+
+</div>
 
 
 </body>

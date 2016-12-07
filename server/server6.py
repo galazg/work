@@ -8,11 +8,12 @@ from os import curdir, sep
 import urlparse, json
 
 host = 'http://localhost:8001'
+tcp_port = 8085
 bridge = 'http://192.168.0.198/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/lights/1/state'
 
-print('Running server on ' + host)
+print 'Running server on port ' + str(tcp_port)
 
-pcoin_contract_address = '0xf03f59fa47ec6680a3b6d84c7a62471553b72840'
+pcoin_contract_address = '0x9d22edeb4a57987e3709a08bdda9be7690497f0a' #added levels 0-7
 fer =  '0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73'
 jon = '0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c'
 mike = '0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f'
@@ -36,18 +37,25 @@ def getAddress(user):
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-
+        mimetype='text/html'
         if self.path =='/':
         	#Open the static file requested and send it
             self.path = '/index.html'
             mimetype='text/html'
-            f = open(curdir + sep + self.path)
-            print curdir + sep + self.path
-            self.send_response(200)
-            self.send_header('Content-type',mimetype)
-            self.end_headers()
-            self.wfile.write(f.read())
-            f.close()
+        if self.path =='/bootstrap/css/bootstrap.min.css':
+            mimetype='text/css'
+        if self.path =='/bootstrap/js/bootstrap.min.js':
+            mimetype='application/javascript'
+        if self.path =='/block_interface.js':
+            mimetype='application/javascript'
+
+        f = open(curdir + sep + self.path)
+        print curdir + sep + self.path
+        self.send_response(200)
+        self.send_header('Content-type',mimetype)
+        self.end_headers()
+        self.wfile.write(f.read())
+        f.close()
 
 
     def do_POST(self):
@@ -138,6 +146,7 @@ class MyHandler(BaseHTTPRequestHandler):
                 print "User has no money"
                 self.wfile.write('{"result":"' + 'no money' +  '"}')
 
+
         if command == "reset":
             rpc_data = reset_method_hash + user_address[2:len(user_address)]
             data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
@@ -161,5 +170,5 @@ def padded_hex(i, l):
             '0x' + extra_zeros + hex_result if num_hex_chars < given_len else
             None)
 
-httpd = SocketServer.TCPServer(("", 8085), MyHandler)
+httpd = SocketServer.TCPServer(("", tcp_port), MyHandler)
 httpd.serve_forever()
