@@ -1,0 +1,11 @@
+address: http://192.168.0.198/api
+body: {"devicetype":"my_hue_app#fernando"}
+method: post
+response:
+[
+	{
+		"success": {
+			"username": "4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R"
+		}
+	}
+]

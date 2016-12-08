@@ -5,36 +5,18 @@ os x:
 geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain/chainData" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /Users/fergalaz/myPrivateChain/CustomGenesis.json console
 -windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init c:/myPrivateChain/CustomGenesis.json console
--Amazon server (ubuntu)
-geth --identity "privateNet1" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/ubuntu/private_net1" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid  1984 --nat "any" init /home/ubuntu/private_net1/CustomGenesis.json console
 
 
 *Launch the node
 -os x:
-geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --mine --minerthreads=1 console
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/Users/fergalaz/myPrivateChain/password.txt" --preload "/Users/fergalaz/myPrivateChain/start.js" console
+to add miner: --mine --minerthreads=1
 -Windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
--Amazon server (ubuntu)
-geth --identity "privateNet1" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/ubuntu/private_net1" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
-
 
 *Location of my blockchain
 /Users/fergalaz/myPrivateChain/
 c:/myPrivateChain
--Amazon server
-/home/ubuntu/private_net1
-/usr/bin/solc
-
-
-*Accounts:
-windows: fernando "0x4b306668a147951526918da5240432ad67f967c0"
--on MAC as of 10 Nov 16:
-fernando "0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73"
-jonathan 0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c
-
-
--Amazon:
-"fernando" "0xd815ccbf0c595cf91d2d24d41aab85a17f8f83ce"
 
 
 *new account
@@ -57,7 +39,6 @@ eth.coinbase
 *List of accounts
 eth.accounts
 personal.listAccounts
-
 
 *Use miner
 miner.start()
@@ -83,7 +64,29 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":6
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73", "latest"],"id":1}' localhost:8001
 curl localhost:8001 -X POST --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "0x8dc03da3c476926e620fc9efd4c6137a02417354", "data": "0x207c64fb00000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe73"}, "latest"],"id":1}'
 
--build the DATA parameter!!!
+--Obtain the method hash
 var callData=myContract.myFunction.getData(parameters)
 pcoin.validate.getData(fer)
 "0x207c64fb00000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe73"
+pcoin.validate.getData(fer)
+"0xa3825d9900000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe730000000000000000000000000000000000000000000000000000000000000003"
+
+--Check balances of a user
+pcoin.balances(fer)
+pcoin.balances(fer)[0] //to check rightsLevel only
+
+--Send transactions from the eth console
+pcoin.sendTokens.sendTransaction(mike,1000,{from:fer})
+pcoin.register.sendTransaction(jon,3,{from:fer})
+
+
+
+------PROBLEMS!!!-------
+When added new cost calculation, and reset_money function, got weird error!
+  if (requestedLevel & 1 > 0) cost+=100;
+  if (requestedLevel & 2 > 0) cost+=100;
+  if (requestedLevel & 4 > 0) cost+=100;
+Apparently the length of the contract contributed to the failure.
+Also,
+  pcoin.balances(fer)  would always give [0,0]
+  checkMoney(fer,x) would return x0 via RPC call

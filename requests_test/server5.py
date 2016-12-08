@@ -8,6 +8,7 @@ from os import curdir, sep
 import urlparse, json
 
 host = 'http://localhost:8001'
+bridge = 'http://192.168.0.198/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/lights/1/state'
 
 pcoin_contract_address = '0xf03f59fa47ec6680a3b6d84c7a62471553b72840'
 fer =  '0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73'
@@ -57,6 +58,7 @@ class MyHandler(BaseHTTPRequestHandler):
         user = data["user"]
         level = data["level"]
         tokens = data["tokens"]
+        arg = data["arg"]
         print data
         user_address = getAddress(data["user"])
 
@@ -66,9 +68,38 @@ class MyHandler(BaseHTTPRequestHandler):
             r = requests.post(host, data=data)
             print r.text
             contract_response = json.loads(r.text)
-            print int(contract_response["result"],0) #convert result from hex string to int
+            user_level_found = int(contract_response["result"],0)
+            print user_level_found #convert result from hex string to int
             #The response to the web UI
             self.wfile.write('{"result":"' + str(int(contract_response["result"],0)) +  '"}')
+
+        if command == "on" or command == "off":
+            rpc_data = validate_method_hash + user_address[2:len(user_address)]
+            data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
+            r = requests.post(host, data=data)
+            print r.text
+            contract_response = json.loads(r.text)
+            user_level_found = int(contract_response["result"],0)
+            print user_level_found #convert result from hex string to int
+            #The response to the web UI
+
+            if user_level_found == 3:
+                self.wfile.write('{"result":"sucess"}')
+                if command == "on":
+                    if arg != "":
+                        data = '{"on":true, "sat":254, "bri":254,"hue":'+ arg +'}'
+                    else:
+                        data = '{"on":true}'
+                    r2 = requests.put(bridge, data)
+                    print r2.text
+
+                elif command =="off":
+                    r2 = requests.put(bridge, '{"on":false}' )
+                    print r2.text
+            else:
+                print "Not enough rights!"
+                self.wfile.write('{"result":"no rights"}')
+
 
         if command == "topup":
             # Existance of user is not validated!!!
