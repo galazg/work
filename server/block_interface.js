@@ -4,6 +4,20 @@ var host = "http://localhost:" + port;
 
 var command_obj = {"command":"", "user":"", "level":"", "tokens":"", "arg":""};
 
+
+$(function(){
+$('#validate1').on('click', function (e) {
+    validate('fer');
+});
+$('#validate2').on('click', function (e) {
+	validate('mike');
+});
+$('#validate3').on('click', function (e) {
+	validate('jon');
+});
+
+});
+
 function on(){
   var user = document.getElementById("user").value;
   command_obj.command = "on";
@@ -79,10 +93,11 @@ function reset(){
 }
 
 
-function validate(){
-  var user = document.getElementById("user").value;
+function validate(user){
+  //var user = document.getElementById("user").value;
   command_obj.command = "validate"
   command_obj.user = user;
+  alert(user);
   if(user==""){
     window.alert("Missing data");
     return;
