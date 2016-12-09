@@ -15,6 +15,48 @@ $('#validate2').on('click', function (e) {
 $('#validate3').on('click', function (e) {
 	validate('jon');
 });
+$('#register1').on('click', function (e) {
+  var level=0;
+  if ($('#user1check4').is(':checked')) level+=4;
+  if ($('#user1check2').is(':checked')) level+=2;
+  if ($('#user1check1').is(':checked')) level+=1;
+  if (level==0) {
+    alert("Cannot register empty selection");
+    return;
+  }
+  $(this).addClass("disabled");
+  $(this).removeClass("btn-primary");
+  $(this).addClass("btn-default");
+  $('#reset1').removeClass("btn-default");
+  $('#reset1').addClass("btn-primary");
+  $('#reset1').removeClass("disabled");
+  $('#user1check4').prop("disabled", true);
+  $('#user1check2').prop("disabled", true);
+  $('#user1check1').prop("disabled", true);
+
+  $('#user1check4v').prop("checked", false);
+  $('#user1check2v').prop("checked", false);
+  $('#user1check1v').prop("checked", false);
+  alert(level);
+});
+$('#reset1').on('click', function (e) {
+  $(this).addClass("disabled");
+  $(this).removeClass("btn-primary");
+  $(this).addClass("btn-default");
+  $('#register1').removeClass("btn-default");
+  $('#register1').addClass("btn-primary");
+  $('#register1').removeClass("disabled");
+  $('#user1check4').prop("disabled", false);
+  $('#user1check4').prop("checked", false);
+  $('#user1check2').prop("disabled", false);
+  $('#user1check2').prop("checked", false);
+  $('#user1check1').prop("disabled", false);
+  $('#user1check1').prop("checked", false);
+  $('#user1check4v').prop("checked", false);
+  $('#user1check2v').prop("checked", false);
+  $('#user1check1v').prop("checked", false);
+});
+
 
 });
 
@@ -109,13 +151,18 @@ function validate(user){
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var obj = JSON.parse(this.responseText);
+      var level = parseInt(obj.result);
       console.log(obj);
-      console.log("User has rights level: " + parseInt(obj.result));
+      console.log("User has rights level: " + level);
       document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      document.getElementById("status").innerHTML = "User " + user + " has rights level " + parseInt(obj.result);
-      if(parseInt(obj.result)==0){
+      document.getElementById("status").innerHTML = "User " + user + " has rights level " +level ;
+      if(level==0){
         document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
       }
+      if(level&&4) $('#user1check4v').prop("checked", true);
+      if(level&&2) $('#user1check2v').prop("checked", true);
+      if(level&&1) $('#user1check1v').prop("checked", true);
+
     }
   };
   //xhttp.open("GET", "http://localhost:8085/validate&" + user, true);

@@ -21,7 +21,7 @@
 <div class="container">
   <div class="row">
   <h1>Admin</h1>
-  </div>  
+  </div>
   <div class="row">
 	<p>Username: <input type = "text" id = "user" value = "" /> </p>
 	<p>Rights Level: <input type = "text" id = "level" value = "" /> </p>
@@ -43,22 +43,20 @@
   <div class="row">
   <h1>Register a user</h1>
   </div>
-  
+
   <div class="row">
-  <a class="btn btn-primary btn-md" role="button">Register 1</a>
-  <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-default">
-      <input type="checkbox" autocomplete="off" checked> Random Colors
-    </label>
-    <label class="btn btn-default">
-      <input type="checkbox" autocomplete="off"> All White
-    </label>
-    <label class="btn btn-default">
-      <input type="checkbox" autocomplete="off"> All Blue
-    </label>
+  <a class="btn btn-primary btn-md" role="button" id="register1" >Register 1</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user1check4" >Option 4</label>
   </div>
-  <a class="btn btn-warning btn-md disabled" role="button">Reset</a>				
-  </div>  
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check2" >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check1" >Option 1</label>
+  </div>
+  <a class="btn btn-default btn-md disabled" role="button" id="reset1">Reset</a>
+  </div>
 
   <div class="row">
   <a class="btn btn-primary btn-md" role="button">Register 2</a>
@@ -73,9 +71,9 @@
       <input type="checkbox" autocomplete="off"> All Blue
     </label>
   </div>
-  <a class="btn btn-warning btn-md disabled" role="button">Reset</a>				
-  </div>  
-  
+  <a class="btn btn-warning btn-md disabled" role="button">Reset</a>
+  </div>
+
   <div class="row">
   <a class="btn btn-primary btn-md" role="button">Register 3</a>
   <div class="btn-group" data-toggle="buttons">
@@ -89,8 +87,8 @@
       <input type="checkbox" autocomplete="off"> All Blue
     </label>
   </div>
-  <a class="btn btn-warning btn-md disabled" role="button">Reset</a>				
-  </div>  
+  <a class="btn btn-warning btn-md disabled" role="button">Reset</a>
+  </div>
 </div> <!-- container: register a user -->
 
 
@@ -99,21 +97,19 @@
   <div class="row">
   <h1>Validate a user</h1>
   </div>
-  
+
   <div class="row">
   <a class="btn btn-primary btn-md" role="button" id="validate1" >Validate 1</a>
-  <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-default">
-      <input type="checkbox" autocomplete="off" checked> Random Colors
-    </label>
-    <label class="btn btn-default">
-      <input type="checkbox" autocomplete="off"> All White
-    </label>
-    <label class="btn btn-default">
-      <input type="checkbox" autocomplete="off"> All Blue
-    </label>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user1check4v" disabled >Option 4</label>
   </div>
-  </div>  
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check2v" disabled >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check1v" disabled >Option 1</label>
+  </div>
+  </div>
 
   <div class="row">
   <a class="btn btn-primary btn-md" role="button" id="validate2" >Validate 2</a>
@@ -128,8 +124,8 @@
       <input type="checkbox" autocomplete="off"> All Blue
     </label>
   </div>
-  </div>  
-  
+  </div>
+
   <div class="row">
   <a class="btn btn-primary btn-md" role="button" id="validate3" >Validate 3</a>
   <div class="btn-group" data-toggle="buttons">
@@ -143,7 +139,7 @@
       <input type="checkbox" autocomplete="off"> All Blue
     </label>
   </div>
-  </div>  
+  </div>
 </div> <!-- container: validate user -->
 
 
@@ -152,7 +148,7 @@
 <div class="container">
   <div class="row">
 	<h1>Send a command</h1>
-  </div>  
+  </div>
   <div class="row">
 	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 		<a class="btn btn-info btn-md" role="button">User 1</a>
