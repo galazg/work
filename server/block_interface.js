@@ -5,6 +5,30 @@ var host = "http://localhost:" + port;
 var command_obj = {"command":"", "user":"", "level":"", "tokens":"", "arg":""};
 
 
+function calculate_level(p){
+  var level=0;
+  if ($('#user'+p+'check4').is(':checked')) level+=4;
+  if ($('#user'+p+'check2').is(':checked')) level+=2;
+  if ($('#user'+p+'check1').is(':checked')) level+=1;
+  if (level==0) {
+    alert("Cannot register empty selection");
+    return 0;
+  }
+  return level;
+};
+
+function register_disable(p){
+  $('#reset'+p).removeClass("btn-default");
+  $('#reset'+p).addClass("btn-primary");
+  $('#reset'+p).removeClass("disabled");
+  $('#user'+p+'check4').prop("disabled", true);
+  $('#user'+p+'check2').prop("disabled", true);
+  $('#user'+p+'check1').prop("disabled", true);
+  $('#user'+p+'check4v').prop("checked", false);
+  $('#user'+p+'check2v').prop("checked", false);
+  $('#user'+p+'check1v').prop("checked", false);
+}
+
 $(function(){
 $('#validate1').on('click', function (e) {
     validate('fer');
@@ -15,50 +39,80 @@ $('#validate2').on('click', function (e) {
 $('#validate3').on('click', function (e) {
 	validate('jon');
 });
-$('#register1').on('click', function (e) {
-  var level=0;
-  if ($('#user1check4').is(':checked')) level+=4;
-  if ($('#user1check2').is(':checked')) level+=2;
-  if ($('#user1check1').is(':checked')) level+=1;
-  if (level==0) {
-    alert("Cannot register empty selection");
-    return;
-  }
-  $(this).addClass("disabled");
-  $(this).removeClass("btn-primary");
-  $(this).addClass("btn-default");
-  $('#reset1').removeClass("btn-default");
-  $('#reset1').addClass("btn-primary");
-  $('#reset1').removeClass("disabled");
-  $('#user1check4').prop("disabled", true);
-  $('#user1check2').prop("disabled", true);
-  $('#user1check1').prop("disabled", true);
 
-  $('#user1check4v').prop("checked", false);
-  $('#user1check2v').prop("checked", false);
-  $('#user1check1v').prop("checked", false);
-  alert(level);
+$('#register1').on('click', function (e) {
+  var level = calculate_level(1);
+  if(level>0){
+    $(this).addClass("disabled");
+    $(this).removeClass("btn-primary");
+    $(this).addClass("btn-default");
+    register_disable(1);
+    register("fer",level);
+    alert("The user has been registered with level "+level);
+  }
+  else return;
 });
+$('#register2').on('click', function (e) {
+  var level = calculate_level(2);
+  if(level>0){
+    $(this).addClass("disabled");
+    $(this).removeClass("btn-primary");
+    $(this).addClass("btn-default");
+    register_disable(2);
+    register("mike",level);
+    alert("The user has been registered with level "+level);
+  }
+  else return;
+});
+$('#register3').on('click', function (e) {
+  var level = calculate_level(3);
+  if(level>0){
+    $(this).addClass("disabled");
+    $(this).removeClass("btn-primary");
+    $(this).addClass("btn-default");
+    register_disable(3);
+    register("jon",level);
+    alert("The user has been registered with level "+level);
+  }
+  else return;
+});
+
+
 $('#reset1').on('click', function (e) {
   $(this).addClass("disabled");
   $(this).removeClass("btn-primary");
   $(this).addClass("btn-default");
-  $('#register1').removeClass("btn-default");
-  $('#register1').addClass("btn-primary");
-  $('#register1').removeClass("disabled");
-  $('#user1check4').prop("disabled", false);
-  $('#user1check4').prop("checked", false);
-  $('#user1check2').prop("disabled", false);
-  $('#user1check2').prop("checked", false);
-  $('#user1check1').prop("disabled", false);
-  $('#user1check1').prop("checked", false);
-  $('#user1check4v').prop("checked", false);
-  $('#user1check2v').prop("checked", false);
-  $('#user1check1v').prop("checked", false);
+  reset_checks(1);
+});
+$('#reset2').on('click', function (e) {
+  $(this).addClass("disabled");
+  $(this).removeClass("btn-primary");
+  $(this).addClass("btn-default");
+  reset_checks(2);
+});
+$('#reset3').on('click', function (e) {
+  $(this).addClass("disabled");
+  $(this).removeClass("btn-primary");
+  $(this).addClass("btn-default");
+  reset_checks(3);
 });
 
-
 });
+
+function reset_checks(p){
+  $('#register'+p).removeClass("btn-default");
+  $('#register'+p).addClass("btn-primary");
+  $('#register'+p).removeClass("disabled");
+  $('#user'+p+'check4').prop("disabled", false);
+  $('#user'+p+'check4').prop("checked", false);
+  $('#user'+p+'check2').prop("disabled", false);
+  $('#user'+p+'check2').prop("checked", false);
+  $('#user'+p+'check1').prop("disabled", false);
+  $('#user'+p+'check1').prop("checked", false);
+  $('#user'+p+'check4v').prop("checked", false);
+  $('#user'+p+'check2v').prop("checked", false);
+  $('#user'+p+'check1v').prop("checked", false);
+}
 
 function on(){
   var user = document.getElementById("user").value;
@@ -136,10 +190,12 @@ function reset(){
 
 
 function validate(user){
-  //var user = document.getElementById("user").value;
+  if (document.getElementById("user").value!="") {
+    user = document.getElementById("user").value;
+    alert("username read from input box");
+  }
   command_obj.command = "validate"
   command_obj.user = user;
-  alert(user);
   if(user==""){
     window.alert("Missing data");
     return;
@@ -159,9 +215,21 @@ function validate(user){
       if(level==0){
         document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
       }
-      if(level&&4) $('#user1check4v').prop("checked", true);
-      if(level&&2) $('#user1check2v').prop("checked", true);
-      if(level&&1) $('#user1check1v').prop("checked", true);
+      //alert("level: "+level);
+      //console.log("User is: "+user);
+      //console.log((level&4)==4);
+      //console.log((level&2)==2);
+      //console.log((level&1)==1);
+
+      //MOVE SOMEWHERE ELSE FOR OPTIMIZATION
+      var p=1;
+      if(user=='mike') p=2;
+      else if(user=='jon') p=3;
+
+      if((level&4)==4) $('#user'+p+'check4v').prop("checked", true); else $('#user'+p+'check4v').prop("checked", false);
+      if((level&2)==2) $('#user'+p+'check2v').prop("checked", true); else $('#user'+p+'check2v').prop("checked", false);
+      if((level&1)==1) $('#user'+p+'check1v').prop("checked", true); else $('#user'+p+'check1v').prop("checked", false);
+
 
     }
   };
@@ -198,16 +266,19 @@ function topup(){
   xhttp.send(data);
 }
 
-function register(){
-  var user = document.getElementById("user").value;
-  var level = document.getElementById("level").value;
+function register(user,level){
+  //var user = document.getElementById("user").value;
+  //var level = document.getElementById("level").value;
   command_obj.command = "register"
   command_obj.user = user;
-  command_obj.level = level;
-  if(user=="" || level==""){
+  command_obj.level = level.toString();
+
+  console.log(user);
+  console.log(level);
+  /*if(user=="" || level==""){
     window.alert("Missing data");
     return;
-  }
+  }*/
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", host, true);
   xhttp.onreadystatechange = function() {
