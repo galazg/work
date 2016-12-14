@@ -51,6 +51,12 @@ $('#validate3').on('click', function (e) {
     validate('jon');
 });
 
+$('#but-yel-u1').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("fer","yellow");
+});
+
+
 $('#register1').on('click', function (e) {
   var level = calculate_level(1);
   //if(level>0){
@@ -132,6 +138,7 @@ function reset_checks(p){
 
 }
 
+
 function on(){
   var user = document.getElementById("user").value;
   command_obj.command = "on";
@@ -206,6 +213,42 @@ function reset(){
   xhttp.send(data);
 }
 
+function command_lights(user,color){
+  //alert("username "+user+" read from input box");
+  command_obj.command = "validate"
+  command_obj.user = user;
+  if(user==""){
+    window.alert("Missing data");
+    return;
+  }
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", host, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      var obj = JSON.parse(this.responseText);
+      var level = parseInt(obj.result);
+      console.log(obj);
+      console.log("User has rights level: " + level);
+      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      //document.getElementById("status").innerHTML = "User " + user + " has rights level " +level ;
+
+      if((color=="yellow")&&(level&4)==4) alert("user "+user+" can command yellow");
+      else alert("user "+user+" can NOT command yellow");
+      //alert("level: "+level);
+      //console.log("User is: "+user);
+      //console.log((level&4)==4);
+      //console.log((level&2)==2);
+      //console.log((level&1)==1);
+
+    }
+  };
+  //xhttp.open("GET", "http://localhost:8085/validate&" + user, true);
+  var data = JSON.stringify(command_obj);
+  //console.log(data)
+  xhttp.send(data);
+}
 
 function validate(user){
   //alert("username "+user+" read from input box");

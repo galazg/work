@@ -8,6 +8,9 @@
   <title>Rights validation with blockchain</title>
   <!-- Bootstrap -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="bootstrap-checkbox/dist/js/bootstrap-checkbox.min.js" defer></script>
+
 </head>
 <body>
 
@@ -16,6 +19,8 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="block_interface.js"></script>
+
+<!-- http://www.bootstraptoggle.com/ -->
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
@@ -75,29 +80,30 @@
 </div>
 </div>
 
+
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading">  <h2>Register a user</h2> </div>
     <div class="panel-body">
       <a class="btn btn-primary btn-md" role="button" id="register1" >Register 1</a>
       <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" id="user1check4" >Option 4</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" id="user1check2" >Option 2</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" id="user1check1" >Option 1&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user1check4" >Yellow&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user1check2" >Red&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user1check1" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
       <a class="btn btn-default btn-md disabled" role="button" id="reset1">Reset</a>
-      <br>
+      <br><br>
       <a class="btn btn-primary btn-md" role="button" id="register2" >Register 2</a>
       <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" id="user2check4" >Option 4</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" id="user2check2" >Option 2</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" id="user2check1" >Option 1&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user2check4" >Yellow&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user2check2" >Red&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user2check1" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
       <a class="btn btn-default btn-md disabled" role="button" id="reset2">Reset</a>
-      <br>
+      <br><br>
       <a class="btn btn-primary btn-md" role="button" id="register3" >Register 3</a>
       <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user3check4" >Option 4</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user3check2" >Option 2</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user3check1" >Option 1&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check4" >Yellow&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check2" >Red&nbsp;</label>
+      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check1" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
       <a class="btn btn-default btn-md disabled" role="button" id="reset3">Reset</a>
       <br>
     </div>
@@ -112,21 +118,21 @@
   <div class="panel-body">
   <a class="btn btn-primary btn-md" role="button" id="validate1" >Validate 1</a>
   <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user1check4v" >Option 4</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user1check2v" >Option 2</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user1check1v" >Option 1&nbsp;&nbsp;&nbsp;&nbsp;</label>
-  <br>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user1check4v" >Yellow&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user1check2v" >Red&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user1check1v" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  <br><br>
   <a class="btn btn-primary btn-md" role="button" id="validate2" >Validate 2</a>
   <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user2check4v" >Option 4</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user2check2v" >Option 2</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user2check1v" >Option 1&nbsp;&nbsp;&nbsp;&nbsp;</label>
-  <br>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user2check4v" >Yellow&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user2check2v" >Red&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user2check1v" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  <br><br>
   <a class="btn btn-primary btn-md" role="button" id="validate3" >Validate 3</a>
   <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user3check4v" >Option 4</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user3check2v" >Option 2</label>
-  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-onstyle="success" value="" id="user3check1v" >Option 1&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check4v" >Yellow&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check2v" >Red&nbsp;</label>
+  <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check1v" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
   <br>
 </div>
 </div>
@@ -140,35 +146,35 @@
   <div class="panel-heading">  <h2>Send a command</h2> </div>
   <div class="panel-body">
 
-	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-		<a class="btn btn-info btn-md" role="button">User 1</a>
-		  <div class="btn-group" role="group" aria-label="First group">
-		  <a class="btn btn-default btn-md" role="button">Random Colors</a>
-		  <a class="btn btn-default btn-md" role="button">All White</a>
-		  <a class="btn btn-default btn-md" role="button">All Blue</a>
-		  </div>
-	  </div>
+      <div>
+      <a class="btn btn-default btn-md disabled" role="button">&nbsp;&nbsp;User 1&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <a class="btn btn-warning btn-md" id="but-yel-u1" role="button">Yellow</a>&nbsp;
+		  <a class="btn btn-danger btn-md"  id="but-red-u1" role="button">Red</a>&nbsp;
+		  <a class="btn btn-info btn-md"    id="but-blu-u1" role="button">Blue</a>&nbsp;
+    </div><br>
+      <div>
+      <a class="btn btn-default btn-md disabled" role="button">&nbsp;&nbsp;User 2&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <a class="btn btn-warning btn-md" id="but-yel-u2" role="button">Yellow</a>&nbsp;
+		  <a class="btn btn-danger btn-md"  id="but-red-u2" role="button">Red</a>&nbsp;
+		  <a class="btn btn-info btn-md"    id="but-blu-u2" role="button">Blue</a>&nbsp;
+    </div><br>
+      <div>
+		  <a class="btn btn-default btn-md disabled" role="button">&nbsp;&nbsp;User 3&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <a class="btn btn-warning btn-md" id="but-yel-u3" role="button">Yellow</a>&nbsp;
+		  <a class="btn btn-danger btn-md"  id="but-red-u3" role="button">Red</a>&nbsp;
+		  <a class="btn btn-info btn-md"    id="but-blu-u3" role="button">Blue</a>&nbsp;
+      </div>
 
-	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-		<a class="btn btn-info btn-md" role="button">User 3</a>
-		  <div class="btn-group" role="group" aria-label="First group">
-		  <a class="btn btn-default btn-md" role="button">Random Colors</a>
-		  <a class="btn btn-default btn-md" role="button">All White</a>
-		  <a class="btn btn-default btn-md" role="button">All Blue</a>
-		  </div>
-	  </div>
-
-	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-		<a class="btn btn-info btn-md" role="button">User 1</a>
-		  <div class="btn-group" role="group" aria-label="First group">
-		  <a class="btn btn-default btn-md" role="button">Random Colors</a>
-		  <a class="btn btn-default btn-md" role="button">All White</a>
-		  <a class="btn btn-default btn-md" role="button">All Blue</a>
-		  </div>
-    </div>
   </div>
 </div>
 </div> <!-- container: send a command -->
+
+<div class="container">
+<div class="alert alert-info" id="status_command">
+  No new information to display.
+</div>
+</div>
+
 
 
 
