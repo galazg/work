@@ -13,16 +13,16 @@ bridge = 'http://192.168.0.198/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/ligh
 
 print 'Running server on port ' + str(tcp_port)
 
-pcoin_contract_address = '0x9d22edeb4a57987e3709a08bdda9be7690497f0a' #added levels 0-7 MAC
-#pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #added levels 0-7 PC
+#pcoin_contract_address = '0x9d22edeb4a57987e3709a08bdda9be7690497f0a' #added levels 0-7 MAC
+pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #added levels 0-7 PC
 
 
-fer =  '0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73' #MAC
-jon = '0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c' #MAC
-mike = '0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f' #MAC
-#fer = '0x4b306668a147951526918da5240432ad67f967c0' #PC
-#mike = '0x4338155e90a9711e058d160f6723bf1032881410' #PC
-#jon = '0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2' #PC
+#fer =  '0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73' #MAC
+#jon = '0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c' #MAC
+#mike = '0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f' #MAC
+fer = '0x4b306668a147951526918da5240432ad67f967c0' #PC
+mike = '0x4338155e90a9711e058d160f6723bf1032881410' #PC
+jon = '0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2' #PC
 sender = fer
 
 validate_method_hash = '0x207c64fb000000000000000000000000'

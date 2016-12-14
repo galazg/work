@@ -24,12 +24,31 @@ function register_disable(p){
   $('#user'+p+'check4').prop("disabled", true);
   $('#user'+p+'check2').prop("disabled", true);
   $('#user'+p+'check1').prop("disabled", true);
-  $('#user'+p+'check4v').prop("checked", false);
-  $('#user'+p+'check2v').prop("checked", false);
-  $('#user'+p+'check1v').prop("checked", false);
+
+  // enable checkboxes to be able to uncheck them
+  $('#user'+p+'check4v').prop("disabled", false);
+  $('#user'+p+'check2v').prop("disabled", false);
+  $('#user'+p+'check1v').prop("disabled", false);
+  //unckeck
+  $('#user'+p+'check4v').bootstrapToggle('off');
+  $('#user'+p+'check2v').bootstrapToggle('off');
+  $('#user'+p+'check1v').bootstrapToggle('off');
+  // disable checkboxes
+  $('#user'+p+'check4v').prop("disabled", true);
+  $('#user'+p+'check2v').prop("disabled", true);
+  $('#user'+p+'check1v').prop("disabled", true);
+
 }
 
 $(function(){
+
+$('#mreset_all').on('click', function (e) {
+    alert("All users will be reset to level 0");
+    register("fer",0);
+    register("jon",0);
+    register("mike",0);
+});
+
 
 $('#mvalidate').on('click', function (e) {
     //alert("received by component handler: "+$('#user').val());
@@ -55,7 +74,40 @@ $('#but-yel-u1').on('click', function (e){
   //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
   command_lights("fer","yellow");
 });
+$('#but-red-u1').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("fer","red");
+});
+$('#but-blu-u1').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("fer","blue");
+});
 
+$('#but-yel-u2').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("mike","yellow");
+});
+$('#but-red-u2').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("mike","red");
+});
+$('#but-blu-u2').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("mike","blue");
+});
+
+$('#but-yel-u3').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("jon","yellow");
+});
+$('#but-red-u3').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("jon","red");
+});
+$('#but-blu-u3').on('click', function (e){
+  //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
+  command_lights("jon","blue");
+});
 
 $('#register1').on('click', function (e) {
   var level = calculate_level(1);
@@ -204,8 +256,8 @@ function reset(){
       console.log(this.responseText);
       var obj = JSON.parse(this.responseText);
       //console.log(obj.result)
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
+      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      //document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
     }
   };
   //xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
@@ -234,13 +286,27 @@ function command_lights(user,color){
       //document.getElementById("status").style.font = "italic bold 20px arial,serif";
       //document.getElementById("status").innerHTML = "User " + user + " has rights level " +level ;
 
-      if((color=="yellow")&&(level&4)==4) alert("user "+user+" can command yellow");
-      else alert("user "+user+" can NOT command yellow");
-      //alert("level: "+level);
-      //console.log("User is: "+user);
-      //console.log((level&4)==4);
-      //console.log((level&2)==2);
-      //console.log((level&1)==1);
+      if(color=="yellow")
+        if((level&4)==4)
+          //document.getElementById("status_command").innerHTML="User "+user+" can command yellow";
+          set_lamps("yellow");
+        else
+          alert("User CANNOT command yellow");
+          //document.getElementById("status_command").innerHTML="User "+user+" can NOT command yellow";
+      else if(color=="red")
+        if((level&2)==2)
+          //document.getElementById("status_command").innerHTML="User "+user+" can command red";
+          set_lamps("red");
+        else
+          alert("User CANNOT command red");
+          //document.getElementById("status_command").innerHTML="User "+user+" can NOT command red";
+      else if(color=="blue")
+        if((level&1)==1)
+          //document.getElementById("status_command").innerHTML="User "+user+" can command blue";
+          set_lamps("blue");
+        else
+          alert("User CANNOT command blue");
+          //document.getElementById("status_command").innerHTML="User "+user+" can NOT command blue";
 
     }
   };
@@ -268,24 +334,30 @@ function validate(user){
       var level = parseInt(obj.result);
       console.log(obj);
       console.log("User has rights level: " + level);
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      /*document.getElementById("status").style.font = "italic bold 20px arial,serif";
       document.getElementById("status").innerHTML = "User " + user + " has rights level " +level ;
       if(level==0){
         document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
-      }
-      //alert("level: "+level);
-      //console.log("User is: "+user);
-      //console.log((level&4)==4);
-      //console.log((level&2)==2);
-      //console.log((level&1)==1);
+      }*/
 
       //MOVE SOMEWHERE ELSE FOR OPTIMIZATION
       var p=1;
       if(user=='mike') p=2;
       else if(user=='jon') p=3;
+
+      //enable checkboxes to be able to toggle them programmaticaly
+      $('#user'+p+'check4v').prop("disabled", false);
+      $('#user'+p+'check2v').prop("disabled", false);
+      $('#user'+p+'check1v').prop("disabled", false);
+
       if((level&4)==4) $('#user'+p+'check4v').bootstrapToggle('on'); else $('#user'+p+'check4v').bootstrapToggle('off');
       if((level&2)==2) $('#user'+p+'check2v').bootstrapToggle('on'); else $('#user'+p+'check2v').bootstrapToggle('off');
       if((level&1)==1) $('#user'+p+'check1v').bootstrapToggle('on'); else $('#user'+p+'check1v').bootstrapToggle('off');
+
+      //disable checkboxes after toggling them with the values retrieved from blockchain
+      $('#user'+p+'check4v').prop("disabled", true);
+      $('#user'+p+'check2v').prop("disabled", true);
+      $('#user'+p+'check1v').prop("disabled", true);
 
     }
   };
@@ -342,19 +414,56 @@ function register(user,level){
       console.log(this.responseText);
       var obj = JSON.parse(this.responseText);
       //console.log(obj.result)
-      document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
 /*      if(obj.result == "already registered") {
         document.getElementById("status").innerHTML = "Error: user " + user + " was already registered with rights level " + level;
       }*/
-      if(obj.result == "no money"){
+
+      /*if(obj.result == "no money"){
         document.getElementById("status").innerHTML = "Error: user " + user + " does not exist or does not have enough tokens";
       }
       else if(obj.result == "has money"){
         document.getElementById("status").innerHTML = "User " + user + " is now registered with rights level " + level;
-      }
+      }*/
+
     }
   };
   //xhttp.open("GET", "http://localhost:8085/register&" + user + "=" + level, true);
   var data = JSON.stringify(command_obj);
   xhttp.send(data);
+}
+
+function load(){
+  for (i = 1; i <=3; i++) {
+    $('#user'+i+'check4v').prop("disabled", true);
+    $('#user'+i+'check2v').prop("disabled", true);
+    $('#user'+i+'check1v').prop("disabled", true);
+   }
+
+   set_lamps("white");
+}
+
+
+function set_lamps(color){
+  var c = document.getElementById("lamps");
+  var ctx = c.getContext("2d");
+
+  ctx.beginPath();
+  ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.fillStyle = color ;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(250, 75, 50, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.fillStyle = color ;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(400, 75, 50, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.fillStyle = color ;
+  ctx.fill();
+
 }

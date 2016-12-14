@@ -9,77 +9,22 @@
   <!-- Bootstrap -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <script src="bootstrap-checkbox/dist/js/bootstrap-checkbox.min.js" defer></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="block_interface.js"></script>
+
+  <!-- http://www.bootstraptoggle.com/ -->
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
 
 </head>
-<body>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="block_interface.js"></script>
-
-<!-- http://www.bootstraptoggle.com/ -->
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
-
-<div class="container">
-
-  <div class="panel panel-default">
-    <div class="panel-heading">  <h2>Administrator</h2> </div>
-    <div class="panel-body">
-
-
-    <div class="form-group">
-      <label for="user">User:</label>
-      <input type="text" class="form-control" id="user">
-    </div>
-    <div class="form-group">
-      <label for="level">Level:</label>
-      <input type="text" class="form-control" id="level">
-    </div>
-    <div class="form-group">
-      <label for="amount">$$$:</label>
-      <input type="text" class="form-control" id="amount">
-    </div>
-
-<!--
-  <p>Username: <input type = "text" id = "user" value = "" /> </p>
-  <p>Rights Level: <input type = "text" id = "level" value = "" /> </p>
-  <p>Top up amount: <input type = "text" id = "amount" value = "" /> </p>
-  <p>Color: <input type = "text" id = "color" value = "" /> </p>
-
-	<button type="button" onclick="validate()">Validate</button>   DONE
-	<button type="button" onclick="register()">Register</button>   PENDING
-	<button type="button" onclick="reset()">Reset</button>   PENDING
-	<button type="button" onclick="topup()">Top up</button>  PENDING
-	<button type="button" onclick="on()">ON!</button>  PENDING
-	<button type="button" onclick="off()">OFF!</button>  PENDING
--->
-  <br>
-  <a class="btn btn-info btn-md" role="button" id="mvalidate" >Validate</a>
-  <a class="btn btn-info btn-md" role="button" id="mregister" >Register</a>
-  <a class="btn btn-info btn-md" role="button" id="mreset" >Reset</a>
-  <a class="btn btn-info btn-md" role="button" id="mtopup" >Top up</a>
-  <a class="btn btn-info btn-md" role="button" id="mon" >ON</a>
-  <a class="btn btn-info btn-md" role="button" id="moff" >OFF</a>
-
-	<br><br>
-<!--	<p id="status">Last action performed is displayed here!</p> -->
-</div>
-</div>
-</div>
-
-
-<div class="container">
-<div class="alert alert-success" id="status">
-  No new information to display.
-</div>
-</div>
-
+<body onload="load()">
 
 <div class="container">
   <div class="panel panel-default">
@@ -175,7 +120,9 @@
 </div>
 </div>
 
-
+<div class="container">
+  <canvas id="lamps" width="500" height="150" style="border:1px solid #d3d3d3;">
+</div>
 
 
 
