@@ -59,10 +59,23 @@ pkill geth
 
 
 ---RPC calls
-*eth_coinbase:
+*Calls:
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":64}' localhost:8001
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73", "latest"],"id":1}' localhost:8001
 curl localhost:8001 -X POST --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "0x8dc03da3c476926e620fc9efd4c6137a02417354", "data": "0x207c64fb00000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe73"}, "latest"],"id":1}'
+*Transactions:
+
+params: [{
+  "from": "mike",
+  "to": "0x9d22edeb4a57987e3709a08bdda9be7690497f0a",
+  "data": "0x05ab421d000000000000000000000000cb1f98d8885db7e6451de659bfe55f5ebf7f396f00000000000000000000000000000000000000000000000000000000000003e7"
+}]
+curl localhost:8001 -X POST --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from": "0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f","to": "0x9d22edeb4a57987e3709a08bdda9be7690497f0a","data": "0x05ab421d000000000000000000000000cb1f98d8885db7e6451de659bfe55f5ebf7f396f00000000000000000000000000000000000000000000000000000000000003e7"}],"id":1}'
+
+Accounts:
+jon 0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c
+mike 0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f
+
 
 --Obtain the method hash
 var callData=myContract.myFunction.getData(parameters)
@@ -70,6 +83,8 @@ pcoin.validate.getData(fer)
 "0x207c64fb00000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe73"
 pcoin.validate.getData(fer)
 "0xa3825d9900000000000000000000000014c1b2ed09229c2df7c04ec92115ece6d1eabe730000000000000000000000000000000000000000000000000000000000000003"
+pcoin.sendTokens.getData(mike,999)
+"0x05ab421d000000000000000000000000cb1f98d8885db7e6451de659bfe55f5ebf7f396f00000000000000000000000000000000000000000000000000000000000003e7"
 
 --Check balances of a user
 pcoin.balances(fer)

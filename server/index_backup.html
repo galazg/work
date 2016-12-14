@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=user-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Rights validation with blockchain</title>
+  <!-- Bootstrap -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="block_interface.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<div class="container">
+  <div class="row">
+  <h1>Admin</h1>
+  </div>
+  <div class="row">
+	<p>Username: <input type = "text" id = "user" value = "" /> </p>
+	<p>Rights Level: <input type = "text" id = "level" value = "" /> </p>
+	<p>Top up amount: <input type = "text" id = "amount" value = "" /> </p>
+	<p>Color: <input type = "text" id = "color" value = "" /> </p>
+	<button type="button" onclick="validate()">Validate</button>
+	<button type="button" onclick="register()">Register</button>
+	<button type="button" onclick="reset()">Reset</button>
+	<button type="button" onclick="topup()">Top up</button>
+	<button type="button" onclick="on()">ON!</button>
+	<button type="button" onclick="off()">OFF!</button>
+	<br><br>
+	<p id="status">Last action performed is displayed here!</p>
+  </div>
+</div>
+
+
+
+<label class="checkbox-inline">
+  <input type="checkbox" checked data-toggle="toggle"> First
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" data-toggle="toggle"> Second
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" data-toggle="toggle"> Third
+</label>
+
+
+
+<div class="container">
+
+  <div class="row">
+  <h1>Register a user</h1>
+  </div>
+
+
+
+  <div class="row">
+  <a class="btn btn-primary btn-md" role="button" id="register1" >Register 1</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" data-toggle="toggle" value="" id="user1check4" >Option 4</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check2" >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check1" >Option 1</label>
+  </div>
+  <a class="btn btn-default btn-md disabled" role="button" id="reset1">Reset</a>
+  </div>
+
+  <div class="row">
+  <a class="btn btn-primary btn-md" role="button" id="register2" >Register 2</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user2check4" >Option 4</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user2check2" >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user2check1" >Option 1</label>
+  </div>
+  <a class="btn btn-default btn-md disabled" role="button" id="reset2">Reset</a>
+  </div>
+
+  <div class="row">
+  <a class="btn btn-primary btn-md" role="button" id="register3" >Register 3</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user3check4" >Option 4</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user3check2" >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user3check1" >Option 1</label>
+  </div>
+  <a class="btn btn-default btn-md disabled" role="button" id="reset3">Reset</a>
+  </div>
+
+</div> <!-- container: register a user -->
+
+
+
+<div class="container">
+  <div class="row">
+  <h1>Validate a user</h1>
+  </div>
+
+  <div class="row">
+  <a class="btn btn-primary btn-md" role="button" id="validate1" >Validate 1</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user1check4v" disabled >Option 4</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check2v" disabled >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user1check1v" disabled >Option 1</label>
+  </div>
+  </div>
+
+  <div class="row">
+  <a class="btn btn-primary btn-md" role="button" id="validate2" >Validate 2</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user2check4v" disabled >Option 4</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user2check2v" disabled >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user2check1v" disabled >Option 1</label>
+  </div>
+  </div>
+
+  <div class="row">
+  <a class="btn btn-primary btn-md" role="button" id="validate3" >Validate 3</a>
+  <div class="checkbox-inline" >
+    <label><input type="checkbox" value="" id="user3check4v" disabled >Option 4</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user3check2v" disabled >Option 2</label>
+  </div>
+  <div class="checkbox-inline">
+    <label><input type="checkbox" value="" id="user3check1v" disabled >Option 1</label>
+  </div>
+  </div>
+
+</div> <!-- container: validate user -->
+
+
+
+
+<div class="container">
+  <div class="row">
+	<h1>Send a command</h1>
+  </div>
+  <div class="row">
+	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		<a class="btn btn-info btn-md" role="button">User 1</a>
+		  <div class="btn-group" role="group" aria-label="First group">
+		  <a class="btn btn-default btn-md" role="button">Random Colors</a>
+		  <a class="btn btn-default btn-md" role="button">All White</a>
+		  <a class="btn btn-default btn-md" role="button">All Blue</a>
+		  </div>
+	  </div>
+  </div>
+   <div class="row">
+	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		<a class="btn btn-info btn-md" role="button">User 3</a>
+		  <div class="btn-group" role="group" aria-label="First group">
+		  <a class="btn btn-default btn-md" role="button">Random Colors</a>
+		  <a class="btn btn-default btn-md" role="button">All White</a>
+		  <a class="btn btn-default btn-md" role="button">All Blue</a>
+		  </div>
+	  </div>
+  </div>
+   <div class="row">
+	  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		<a class="btn btn-info btn-md" role="button">User 1</a>
+		  <div class="btn-group" role="group" aria-label="First group">
+		  <a class="btn btn-default btn-md" role="button">Random Colors</a>
+		  <a class="btn btn-default btn-md" role="button">All White</a>
+		  <a class="btn btn-default btn-md" role="button">All Blue</a>
+		  </div>
+	  </div>
+  </div>
+</div> <!-- container: send a command -->
+
+
+
+
+
+<!-- spaceholder container -->
+<div class="container">
+	<br>
+	<br>
+	<br>
+</div>
+
+
+
+
+</body>
+</html>
