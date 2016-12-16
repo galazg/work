@@ -21,8 +21,8 @@ pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #added lev
 #jon = '0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c' #MAC
 #mike = '0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f' #MAC
 fer = '0x4b306668a147951526918da5240432ad67f967c0' #PC
-mike = '0x4338155e90a9711e058d160f6723bf1032881410' #PC
-jon = '0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2' #PC
+jon = '0x4338155e90a9711e058d160f6723bf1032881410' #PC
+mike = '0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2' #PC
 sender = fer
 
 validate_method_hash = '0x207c64fb000000000000000000000000'
@@ -121,6 +121,7 @@ class MyHandler(BaseHTTPRequestHandler):
             # Existance of user is not validated!!!
             print "tokens to load: " + str(tokens)
             tokens_param = padded_hex(int(tokens),64)
+            print("Top up user: "+user+" with "+ tokens+" tokens");
             rpc_data = topup_method_hash + user_address[2:len(user_address)] + tokens_param[2:len(tokens_param)]
             data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
             r = requests.post(host, data=data)
