@@ -1,5 +1,6 @@
 var port = "8085";
-var host = "http://localhost:" + port;
+//var host = "http://localhost:" + port;
+var host = "http://192.168.0.201:" + port;
 //var host = "http://bcsvyvr5m.westeurope.cloudapp.azure.com:8545";
 
 var command_obj = {"command":"", "user":"", "level":"", "tokens":"", "arg":""};

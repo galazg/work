@@ -23,7 +23,7 @@ pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #added lev
 fer = '0x4b306668a147951526918da5240432ad67f967c0' #PC
 jon = '0x4338155e90a9711e058d160f6723bf1032881410' #PC
 mike = '0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2' #PC
-sender = fer
+sender = '0x168b9bea655f59c73f55da2da227ac2ba6ccb691' #master account in node1 (nuc)
 
 validate_method_hash = '0x207c64fb000000000000000000000000'
 topup_method_hash = '0x05ab421d000000000000000000000000'

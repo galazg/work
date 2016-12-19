@@ -6,8 +6,7 @@ admin.addPeer("enode://5a1a9aaf439fa3e298c821c4a88721e0cc9a37d9607483cc7b9ecc83c
 
 -hp laptop
 "enode://987db617c1814a88d669d0b5ddcba2cde43e804d49fe5fd3935d187b77cfbf9f4c1fbb3d3f22e2d805cf2e9e18b7f91defeb07b571e5145b08a796e2080c451d@165.225.80.95:30303"
-
-
+admin.addPeer("enode://987db617c1814a88d669d0b5ddcba2cde43e804d49fe5fd3935d187b77cfbf9f4c1fbb3d3f22e2d805cf2e9e18b7f91defeb07b571e5145b08a796e2080c451d@[::]:30303")
 
 
 //blockchain1

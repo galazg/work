@@ -5,6 +5,8 @@ os x:
 geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain/chainData" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /Users/fergalaz/myPrivateChain/CustomGenesis.json console
 -windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init c:/myPrivateChain/CustomGenesis.json console
+-nuc:
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node1/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /home/node1/work/geth_dependencies/CustomGenesis.json console
 
 
 *Launch the node
@@ -13,6 +15,8 @@ geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --dat
 to add miner: --mine --minerthreads=1
 -Windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
+-nuc:
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node1/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
 
 *Location of my blockchain
 /Users/fergalaz/myPrivateChain/

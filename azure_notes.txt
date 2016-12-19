@@ -1,2 +1,0 @@
-pcoin address:
-0xcfe840d4ed97c10d3dacc46cd4473c9ac9fa7677
