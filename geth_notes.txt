@@ -6,7 +6,7 @@ geth --identity "myPrivateNode" --rpc --rpcport "8000" --rpccorsdomain "*" --dat
 -windows:
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init c:/myPrivateChain/CustomGenesis.json console
 -nuc:
-geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node1/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /home/node1/work/geth_dependencies/CustomGenesis.json console
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node2/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" init /home/node2/work/geth_dependencies/CustomGenesis.json console
 
 
 *Launch the node
@@ -14,13 +14,14 @@ geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --dat
 geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/Users/fergalaz/myPrivateChain" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/Users/fergalaz/myPrivateChain/password.txt" --preload "/Users/fergalaz/myPrivateChain/start.js" console
 to add miner: --mine --minerthreads=1
 -Windows:
-geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "c:/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "c:/work/geth_dependencies/password.txt" --preload "c:/work/geth_dependencies/startpc.js" console
 -nuc:
-geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node1/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" console
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node1/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/home/node1/work/geth_dependencies/password.txt" --preload "/home/node1/work/geth_dependencies/start.js" console
 
 *Location of my blockchain
 /Users/fergalaz/myPrivateChain/
 c:/myPrivateChain
+/node1/myPrivateChain/
 
 
 *new account
@@ -75,7 +76,10 @@ params: [{
   "data": "0x05ab421d000000000000000000000000cb1f98d8885db7e6451de659bfe55f5ebf7f396f00000000000000000000000000000000000000000000000000000000000003e7"
 }]
 curl localhost:8001 -X POST --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from": "0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f","to": "0x9d22edeb4a57987e3709a08bdda9be7690497f0a","data": "0x05ab421d000000000000000000000000cb1f98d8885db7e6451de659bfe55f5ebf7f396f00000000000000000000000000000000000000000000000000000000000003e7"}],"id":1}'
-
+ 0xf9454f3f0000000000000000000000004b306668a147951526918da5240432ad67f967c000000000000000000000000000000000000000000000000000000000000001
+                                                                           0000000000000000000000000000000000000000000000000000000000000001
+ 0xf9454f3f0000000000000000000000004b306668a147951526918da5240432ad67f967c00000000000000000000000000000000000000000000000000000000000000001
+                                                                           0000000000000000000000000000000000000000000000000000000000000004
 Accounts:
 jon 0x50dad339ff9cf7e31cf2de1ea55ef54ca29b346c
 mike 0xcb1f98d8885db7e6451de659bfe55f5ebf7f396f

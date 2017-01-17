@@ -1,0 +1,33 @@
+contract address
+0x697b8fad3292e594a4312dc94a17e2dced12e97e
+
+interface
+[{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendTokens","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"tokens","type":"uint256"},{"name":"device1","type":"uint256"},{"name":"device2","type":"uint256"},{"name":"device3","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"user","type":"address"}],"name":"reset","outputs":[{"name":"successful","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"user","type":"address"},{"name":"deviceid","type":"uint256"}],"name":"validate","outputs":[{"name":"level","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"payingUser","type":"address"},{"name":"rightsLevelReq","type":"uint256"}],"name":"checkMoney","outputs":[{"name":"flag","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"payingUser","type":"address"},{"name":"deviceid","type":"uint256"},{"name":"rights","type":"uint256"}],"name":"register","outputs":[{"name":"flag","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
+
+
+accounts in pc:
+["0x4b306668a147951526918da5240432ad67f967c0", "0x4338155e90a9711e058d160f6723bf1032881410", "0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2"]
+
+
+method hashes:
+parameters: account: "0x4b306668a147951526918da5240432ad67f967c0", device=1,  rights=9, amount=1
+
+function sendTokens(address receiver, uint amount) returns(bool successful) {
+"0x05ab421d0000000000000000000000004b306668a147951526918da5240432ad67f967c00000000000000000000000000000000000000000000000000000000000000001"
+
+function register(address payingUser, uint deviceid, uint rights) returns(uint flag),
+"0xf9454f3f0000000000000000000000004b306668a147951526918da5240432ad67f967c000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000009"
+
+function checkMoney(address payingUser, uint rightsLevelReq) constant returns(uint flag)
+"0xa3825d990000000000000000000000004b306668a147951526918da5240432ad67f967c00000000000000000000000000000000000000000000000000000000000000001"
+
+function validate(address user, uint deviceid) constant returns(uint level)
+"0x98e0ae140000000000000000000000004b306668a147951526918da5240432ad67f967c00000000000000000000000000000000000000000000000000000000000000001"
+
+function reset(address user) returns(bool successful)
+"0x6b8ab97d0000000000000000000000004b306668a147951526918da5240432ad67f967c0"
+
+
+
+method calls examples
+pcoin2.register.sendTransaction(mike,2,9,{from:fer})

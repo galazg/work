@@ -15,7 +15,8 @@ print 'Running server on port ' + str(tcp_port)
 
 #pcoin_contract_address = '0x9d22edeb4a57987e3709a08bdda9be7690497f0a' #added levels 0-7 MAC
 #pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #added levels 0-7 PC
-pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #redefined with deviceid
+
+pcoin_contract_address = '0x697b8fad3292e594a4312dc94a17e2dced12e97e' #redefined with deviceid
 
 
 #fer =  '0x14c1b2ed09229c2df7c04ec92115ece6d1eabe73' #MAC
@@ -24,6 +25,8 @@ pcoin_contract_address = '0x41f8ae8180bd3c4a5da2f40282cc89fb89bb0ccc' #redefined
 user1 = '0x4b306668a147951526918da5240432ad67f967c0' #PC
 user2 = '0x4338155e90a9711e058d160f6723bf1032881410' #PC
 user3 = '0x93c3a68e2c431c75a7a2c3ed49f83eb1a04210b2' #PC
+user4 = '0xe404f3faa02ffebebd17c1b5783134f1a7d3af7c' #this will have no money
+
 sender = user1
 #sender = '0x168b9bea655f59c73f55da2da227ac2ba6ccb691' #master account in node1 (nuc)
 
@@ -49,6 +52,8 @@ def getAddress(user):
         return user2;
     elif user == 'user3':
         return user3;
+    elif user == 'user4':
+        return user4;
     else:
         return '0x0000000000000000000000000000000000000000';
 
@@ -57,7 +62,7 @@ class MyHandler(BaseHTTPRequestHandler):
         mimetype='text/html'
         if self.path =='/':
         	#Open the static file requested and send it
-            self.path = '/index.html'
+            self.path = '/index3.html'
             mimetype='text/html'
         if self.path =='/bootstrap/css/bootstrap.min.css':
             mimetype='text/css'
@@ -85,12 +90,15 @@ class MyHandler(BaseHTTPRequestHandler):
         user = data["user"]
         level = data["level"]
         tokens = data["tokens"]
+        deviceid = data["deviceid"] #new
         arg = data["arg"]
         print data
         user_address = getAddress(data["user"])
 
         if command == "validate":
-            rpc_data = validate_method_hash + user_address[2:len(user_address)]
+            #deviceid_param = padded_hex(int(deviceid,64))
+            deviceid_param = '000000000000000000000000000000000000000000000000000000000000000' + deviceid
+            rpc_data = validate_method_hash + user_address[2:len(user_address)] + deviceid_param
             data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
             r = requests.post(host, data=data)
             print r.text
@@ -143,8 +151,10 @@ class MyHandler(BaseHTTPRequestHandler):
         if command == "register":
             # Existance of user is not validated!!!
             # Request to register to a lower level than current is not validated!!!
-            print "Register: " + user + " with level " + level
+            print "Register: " + user + " with level " + level + " device " + deviceid
             level_param = padded_hex(int(level),64)
+            #deviceid_param = padded_hex(int(deviceid,64))
+            deviceid_param = '000000000000000000000000000000000000000000000000000000000000000' + deviceid
             #Check money first
             rpc_data = check_money_method_hash + user_address[2:len(user_address)] + level_param[2:len(level_param)]
             data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
@@ -152,14 +162,16 @@ class MyHandler(BaseHTTPRequestHandler):
             print r.text
             contract_response = json.loads(r.text)
             has_money = int(contract_response["result"],0)
-            if has_money == 1:
+            if has_money > 0 :
                 print "User has money, proceed to register"
-                rpc_data = register_method_hash + user_address[2:len(user_address)] + level_param[2:len(level_param)]
+                rpc_data = register_method_hash + user_address[2:len(user_address)] + deviceid_param + level_param[2:len(level_param)]
+
                 data = '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"' + sender + '", "to":"' + pcoin_contract_address + '", "data": "' + rpc_data +'"}],"id":1}'
+                print data
                 r = requests.post(host, data=data)
                 print r.text
                 contract_response = json.loads(r.text) #not forwarded to the web UI at the moment
-                self.wfile.write('{"result":"' + 'has money' +  '"}')
+                self.wfile.write('{"result":"' + 'has money' +  '" , "balance":"'+ str(has_money-int(level)*100)  +'  "  }  ')
             else:
                 print "User has no money"
                 self.wfile.write('{"result":"' + 'no money' +  '"}')

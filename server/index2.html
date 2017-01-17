@@ -27,30 +27,50 @@
 <body onload="load()">
 
 
+  <br>
+  <div class="container">
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="owner_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Select owner
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li><a href="#" id="owner1" >Owner 1</a></li>
+      <li><a href="#" id="owner2" >Owner 2</a></li>
+      <li><a href="#" id="owner3" >Owner 3</a></li>
+    </ul>
+  </div>
+</div>
+<br>
+
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading">  <h2>Register a device</h2> </div>
     <div class="panel-body">
-      <a class="btn btn-primary btn-md" role="button" id="register1" >Register 1</a>
+
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="register_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Select device<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="#" id="rdevice1" >Device 1</a></li>
+          <li><a href="#" id="rdevice2" >Device 2</a></li>
+          <li><a href="#" id="rdevice3" >Device 3</a></li>
+        </ul>
+      </div>
+
+      <br>
+
+
       <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
       <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user1check4" >Yellow&nbsp;</label>
       <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user1check2" >Red&nbsp;</label>
       <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user1check1" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <a class="btn btn-default btn-md disabled" role="button" id="reset1">Reset</a>
+
       <br><br>
-      <a class="btn btn-primary btn-md" role="button" id="register2" >Register 2</a>
-      <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user2check4" >Yellow&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user2check2" >Red&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" id="user2check1" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <a class="btn btn-default btn-md disabled" role="button" id="reset2">Reset</a>
+      <a class="btn btn-primary btn-md" role="button" id="register1" >Register</a>
       <br><br>
-      <a class="btn btn-primary btn-md" role="button" id="register3" >Register 3</a>
-      <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check4" >Yellow&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check2" >Red&nbsp;</label>
-      <label class="checkbox-inline"><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" value="" id="user3check1" >Blue&nbsp;&nbsp;&nbsp;&nbsp;</label>
-      <a class="btn btn-default btn-md disabled" role="button" id="reset3">Reset</a>
+
+
       <br>
     </div>
   </div>
