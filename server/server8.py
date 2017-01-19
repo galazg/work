@@ -9,7 +9,9 @@ import urlparse, json
 
 host = 'http://localhost:8001'  #entry point of geth node, running on the same computer as the web server
 tcp_port = 8085
-# bridge = 'http://192.168.0.198/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/lights/1/state'
+lamp1 = 'http://192.168.0.105/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/lights/1/state'
+lamp2 = 'http://192.168.0.105/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/lights/2/state'
+lamp3 = 'http://192.168.0.105/api/4aIiIAlJt2VZyKoLPyVwBImjYTRgeyNfOytY2L4R/lights/4/state'
 
 print 'Running server on port ' + str(tcp_port)
 
@@ -133,31 +135,42 @@ class MyHandler(BaseHTTPRequestHandler):
             self.wfile.write('{"result":"' + str(int(contract_response["result"],0)) +  '"}')
 
         if command == "on" or command == "off":
-            rpc_data = validate_method_hash + user_address[2:len(user_address)]
+            deviceid_param = '000000000000000000000000000000000000000000000000000000000000000' + deviceid
+            rpc_data = validate_method_hash + user_address[2:len(user_address)] + deviceid_param
             data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
             r = requests.post(host, data=data)
             print r.text
             contract_response = json.loads(r.text)
             user_level_found = int(contract_response["result"],0)
-            print user_level_found #convert result from hex string to int
+            print "user level found: " + str(user_level_found) #convert result from hex string to int
             #The response to the web UI
 
-            if user_level_found == 3:
-                self.wfile.write('{"result":"sucess"}')
-                if command == "on":
-                    if arg != "":
-                        data = '{"on":true, "sat":254, "bri":254,"hue":'+ arg +'}'
-                    else:
-                        data = '{"on":true}'
-                    r2 = requests.put(bridge, data)
-                    print r2.text
 
-                elif command =="off":
-                    r2 = requests.put(bridge, '{"on":false}' )
-                    print r2.text
-            else:
-                print "Not enough rights!"
-                self.wfile.write('{"result":"no rights"}')
+            #if user_level_found == 1 or user_level_found == 3 or user_level_found == 5 or user_level_found == 7:
+            #    self.wfile.write('{"result":"sucess"}')
+            #    if command == "on":
+            #        if arg != "":
+            data = '{"on":true, "sat":254, "bri":254,"hue":'+ arg +'}'
+            #        else:
+            #            data = '{"on":true}'
+            if deviceid == "1":
+                r2 = requests.put(lamp1, data)
+            if deviceid == "2":
+                r2 = requests.put(lamp2, data)
+            if deviceid == "3":
+                r2 = requests.put(lamp3, data)
+
+            self.wfile.write('{"result":"sucess"}')
+
+
+            print r2.text
+
+            #    elif command =="off":
+            #        r2 = requests.put(bridge, '{"on":false}' )
+            #        print r2.text
+            #else:
+            #    print "Not enough rights!"
+            #    self.wfile.write('{"result":"no rights"}')
 
 
         if command == "topup":

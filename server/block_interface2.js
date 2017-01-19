@@ -1,6 +1,6 @@
 var port = "8085";
-var host = "http://localhost:" + port;  //use this when running on same computer as the eth node
-//var host = "http://192.168.0.201:" + port;
+//var host = "http://localhost:" + port;  //use this when running on same computer as the eth node
+var host = "http://192.168.0.201:" + port;
 //var host = "http://bcsvyvr5m.westeurope.cloudapp.azure.com:8545";
 
 var command_obj = {"command":"", "user":"", "level":"", "tokens":"", "arg":"", "deviceid":""};
@@ -44,6 +44,14 @@ function calculate_level(p){
 //
 // }
 
+
+function lamps_white(){
+  lamp_on(1,"40000"); 
+  lamp_on(2,"40000"); 
+  lamp_on(3,"40000"); 
+}
+
+
 $(function(){
 
 $('#owner1').on('click', function (e) {
@@ -57,6 +65,10 @@ $('#owner1').on('click', function (e) {
   set_lamps(1,"white");
   set_lamps(2,"white");
   set_lamps(3,"white");
+  load_register_checks("user1",1);
+  load_register_checks("user1",2);
+  load_register_checks("user1",3);
+  lamps_white();
 });
 $('#owner2').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Fernando";
@@ -68,6 +80,11 @@ $('#owner2').on('click', function (e) {
   set_lamps(1,"white");
   set_lamps(2,"white");
   set_lamps(3,"white");
+  load_register_checks("user2",1);
+  load_register_checks("user2",2);
+  load_register_checks("user2",3);
+  lamps_white();
+
 });
 $('#owner3').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Mike";
@@ -79,6 +96,11 @@ $('#owner3').on('click', function (e) {
   set_lamps(1,"white");
   set_lamps(2,"white");
   set_lamps(3,"white");
+  load_register_checks("user3",1);
+  load_register_checks("user3",2);
+  load_register_checks("user3",3);
+  lamps_white();
+
 });
 $('#owner4').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Giovanni";
@@ -90,6 +112,11 @@ $('#owner4').on('click', function (e) {
   set_lamps(1,"white");
   set_lamps(2,"white");
   set_lamps(3,"white");
+  load_register_checks("user4",1);
+  load_register_checks("user4",2);
+  load_register_checks("user4",3);
+  lamps_white();
+
 });
 
 // $('#rdevice1').on('click', function (e) {
@@ -145,51 +172,6 @@ $('#register3').on('click', function (e) {
 
 
 
-function register_device(){
-  var level = calculate_level(register_device_selected);
-  switch(owner_selected){
-    case 1:
-      register("user1",register_device_selected,level);
-      break;
-    case 2:
-      register("user2",register_device_selected,level);
-      break;
-    case 3:
-      register("user3",register_device_selected,level);
-      break;
-    case 4:
-      register("user4",register_device_selected,level);
-      break;
-    default:
-      alert("No owner selected");
-      return;
-  }
-//  alert("Owner "+ owner_selected+ " has registered device "+register_device_selected+ " (level "+level+")");
-  //reset_checks(register_device_selected);
-  return 1;
-}
-
-function validate_device(){
-  switch(owner_selected){
-    case 1:
-      validate("user1",validate_device_selected);
-      break;
-    case 2:
-      validate("user2",validate_device_selected);
-      break;
-    case 3:
-      validate("user3",validate_device_selected);
-      break;
-    case 4:
-      validate("user4",validate_device_selected);
-      break;
-    default:
-      alert("No owner selected");
-      return;
-  }
-  return 1;
-}
-
 
 $('#validate1').on('click', function (e) {
     validate_device_selected = 1;
@@ -205,25 +187,6 @@ $('#validate3').on('click', function (e) {
 });
 
 
-function command_device(device,color){
-  switch(owner_selected){
-    case 1:
-      command_lights("user1",device,color);
-      break;
-    case 2:
-      command_lights("user2",device,color);
-      break;
-    case 3:
-      command_lights("user3",device,color);
-      break;
-    case 4:
-      command_lights("user4",device,color);
-      break;
-    default:
-      alert("No owner selected");
-      return;
-  }
-}
 
 
 $('#but-yel-u1').on('click', function (e){
@@ -238,6 +201,7 @@ $('#but-red-u1').on('click', function (e){
 $('#but-blu-u1').on('click', function (e){
   //document.getElementById("status_command").innerHTML = "User 1 command Yellow";
   command_device(1,1);
+
 });
 
 $('#but-yel-u2').on('click', function (e){
@@ -299,6 +263,55 @@ $('#reset3').on('click', function (e) {
 
 
 
+
+function register_device(){
+  var level = calculate_level(register_device_selected);
+  switch(owner_selected){
+    case 1:
+      register("user1",register_device_selected,level);
+      break;
+    case 2:
+      register("user2",register_device_selected,level);
+      break;
+    case 3:
+      register("user3",register_device_selected,level);
+      break;
+    case 4:
+      register("user4",register_device_selected,level);
+      break;
+    default:
+      alert("No owner selected");
+      return;
+  }
+//  alert("Owner "+ owner_selected+ " has registered device "+register_device_selected+ " (level "+level+")");
+  //reset_checks(register_device_selected);
+  return 1;
+}
+
+function validate_device(){
+  switch(owner_selected){
+    case 1:
+      validate("user1",validate_device_selected);
+      break;
+    case 2:
+      validate("user2",validate_device_selected);
+      break;
+    case 3:
+      validate("user3",validate_device_selected);
+      break;
+    case 4:
+      validate("user4",validate_device_selected);
+      break;
+    default:
+      alert("No owner selected");
+      return;
+  }
+  return 1;
+}
+
+
+
+
 function reset_checks(p){
   // $('#register'+p).removeClass("btn-default");
   // $('#register'+p).addClass("btn-primary");
@@ -331,30 +344,7 @@ function reset_checks(p){
 }
 
 
-function on(){
-  var user = document.getElementById("user").value;
-  command_obj.command = "on";
-  command_obj.user = user;
-  command_obj.arg = document.getElementById("color").value;
-  if(user==""){
-    window.alert("Missing data");
-    return;
-  }
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      var obj = JSON.parse(this.responseText);
-      //console.log(obj.result)
-      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      //document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
-    }
-  };
-  //xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
-  var data = JSON.stringify(command_obj);
-  xhttp.send(data);
-}
+
 
 function off(){
   var user = document.getElementById("user").value;
@@ -405,6 +395,29 @@ function reset(){
   xhttp.send(data);
 }
 
+
+
+
+function command_device(device,color){
+  switch(owner_selected){
+    case 1:
+      command_lights("user1",device,color);
+      break;
+    case 2:
+      command_lights("user2",device,color);
+      break;
+    case 3:
+      command_lights("user3",device,color);
+      break;
+    case 4:
+      command_lights("user4",device,color);
+      break;
+    default:
+      alert("No owner selected");
+      return;
+  }
+}
+
 function command_lights(user,device,color){
   //      command_lights("user1",device,color);
   command_obj.command = "validate"
@@ -425,27 +438,35 @@ function command_lights(user,device,color){
       var level = parseInt(obj.result);
       console.log(obj);
       console.log("User has rights level: " + level);
+      console.log("color: "+color);
       //document.getElementById("status").style.font = "italic bold 20px arial,serif";
       //document.getElementById("status").innerHTML = "User " + user + " has rights level " +level ;
 
       if(color==4)
-        if((level&4)==4)
+        if((level&4)==4){
           //document.getElementById("status_command").innerHTML="User "+user+" can command yellow";
           set_lamps(device,"yellow");
+          lamp_on(device,"20000"); //the number is the hue of yellow?
+		}
         else
           alert("Device not capable of turning YELLOW");
           //document.getElementById("status_command").innerHTML="User "+user+" can NOT command yellow";
       else if(color==2)
-        if((level&2)==2)
+        if((level&2)==2){
           //document.getElementById("status_command").innerHTML="User "+user+" can command red";
           set_lamps(device,"red");
+          lamp_on(device,"65535"); //the number is the hue of blue?
+
+      	}
         else
           alert("Device not capable of turning RED");
           //document.getElementById("status_command").innerHTML="User "+user+" can NOT command red";
       else if(color==1)
-        if((level&1)==1)
+        if((level&1)==1){
           //document.getElementById("status_command").innerHTML="User "+user+" can command blue";
           set_lamps(device,"blue");
+          lamp_on(device,"47000"); //the number is the hue of blue?
+      	}
         else
           alert("Device not capable of turning BLUE");
           //document.getElementById("status_command").innerHTML="User "+user+" can NOT command blue";
@@ -455,6 +476,29 @@ function command_lights(user,device,color){
   //xhttp.open("GET", "http://localhost:8085/validate&" + user, true);
   var data = JSON.stringify(command_obj);
   //console.log(data)
+  xhttp.send(data);
+}
+
+function lamp_on(device,hue){
+  //var user = document.getElementById("user").value;
+  command_obj.command = "on";
+  command_obj.user = "";
+  command_obj.arg = hue;
+  command_obj.deviceid = device.toString();
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", host, true);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      var obj = JSON.parse(this.responseText);
+      console.log(obj.result)
+      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      //document.getElementById("status").innerHTML = "The token balance and rights of user " + user + " have been cleared";
+    }
+  };
+  //xhttp.open("GET", "http://localhost:8085/reset&" + user, true);
+  var data = JSON.stringify(command_obj);
   xhttp.send(data);
 }
 
@@ -504,6 +548,56 @@ function validate(user,device){
       $('#user'+device_s+'check4v').prop("disabled", true);
       $('#user'+device_s+'check2v').prop("disabled", true);
       $('#user'+device_s+'check1v').prop("disabled", true);
+
+    }
+  };
+  //xhttp.open("GET", "http://localhost:8085/validate&" + user, true);
+  var data = JSON.stringify(command_obj);
+  //console.log(data)
+  xhttp.send(data);
+}
+
+
+
+
+function load_register_checks(user,device){
+  //alert("username "+user+" read from input box");
+  command_obj.command = "validate"
+  command_obj.user = user;
+  command_obj.deviceid = device.toString();
+
+  if(user==""){
+    window.alert("Missing data");
+    return;
+  }
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", host, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      var obj = JSON.parse(this.responseText);
+      var level = parseInt(obj.result);
+      console.log(obj);
+      console.log("User has rights level: " + level);
+      /*document.getElementById("status").style.font = "italic bold 20px arial,serif";
+      document.getElementById("status").innerHTML = "User " + user + " has rights level " +level ;
+      if(level==0){
+        document.getElementById("status").innerHTML = "User " + user + " has rights level 0 or does not exist";
+      }*/
+
+
+      //MOVE SOMEWHERE ELSE FOR OPTIMIZATION
+      // var p=1;
+      // if(user=='mike') p=2;
+      // else if(user=='jon') p=3;
+
+      var device_s = device.toString();
+
+
+      if((level&4)==4) $('#user'+device_s+'check4').bootstrapToggle('on'); else $('#user'+device_s+'check4').bootstrapToggle('off');
+      if((level&2)==2) $('#user'+device_s+'check2').bootstrapToggle('on'); else $('#user'+device_s+'check2').bootstrapToggle('off');
+      if((level&1)==1) $('#user'+device_s+'check1').bootstrapToggle('on'); else $('#user'+device_s+'check1').bootstrapToggle('off');
 
     }
   };
@@ -568,6 +662,9 @@ function load(){
    set_lamps(1,"white");
    set_lamps(2,"white");
    set_lamps(3,"white");
+
+   lamps_white();
+
 }
 
 
