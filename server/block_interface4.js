@@ -446,7 +446,7 @@ function command_lights(user,device,color){
         if((level&4)==4){
           //document.getElementById("status_command").innerHTML="User "+user+" can command yellow";
           set_lamps(device,"yellow");
-          lamp_on(device,"yellow"); //the number is the hue of yellow?
+          lamp_on(device,"12750"); //the number is the hue of yellow?
 		}
         else
           alert("Device not capable of turning YELLOW");
@@ -455,7 +455,7 @@ function command_lights(user,device,color){
         if((level&2)==2){
           //document.getElementById("status_command").innerHTML="User "+user+" can command red";
           set_lamps(device,"red");
-          lamp_on(device,"red"); //the number is the hue of blue?
+          lamp_on(device,"0"); //the number is the hue of blue?
 
       	}
         else
@@ -465,7 +465,7 @@ function command_lights(user,device,color){
         if((level&1)==1){
           //document.getElementById("status_command").innerHTML="User "+user+" can command blue";
           set_lamps(device,"blue");
-          lamp_on(device,"blue"); //the number is the hue of blue?
+          lamp_on(device,"47000"); //the number is the hue of blue?
       	}
         else
           alert("Device not capable of turning BLUE");

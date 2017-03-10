@@ -1,0 +1,5 @@
+ssh node2@192.168.0.202 sudo shutdown -P 0
+ssh node3@192.168.0.203 sudo shutdown -P 0
+ssh node4@192.168.0.204 sudo shutdown -P 0
+ssh node5@192.168.0.205 sudo shutdown -P 0
+

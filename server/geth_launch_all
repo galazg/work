@@ -1,0 +1,6 @@
+xterm -e 'ssh node2@192.168.0.202' &
+xterm -e 'ssh node3@192.168.0.203' &
+xterm -e 'ssh node4@192.168.0.204' &
+xterm -e 'ssh node5@192.168.0.205' &
+cd ~/work/server
+./geth_launch
