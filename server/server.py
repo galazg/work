@@ -16,7 +16,7 @@ tcp_port = 8085
 #lamp1 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/1/state'
 #lamp2 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/2/state'
 #lamp3 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/3/state'
-bridge_address = 'http://192.168.0.230/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/'
+bridge_address = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/'
 hue_values = {'yellow':'10000', 'red':'0', 'blue':'47000'}
 
 print 'Running server on port ' + str(tcp_port)

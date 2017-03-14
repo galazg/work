@@ -1,12 +1,1 @@
-case $HOSTNAME in
-  (node1) geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node1/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/home/node1/work/geth_dependencies/password.txt" --preload "/home/node1/work/geth_dependencies/start.js" console
-  ;;
-  (node2) geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node2/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/home/node2/work/geth_dependencies/password.txt" --preload "/home/node2/work/geth_dependencies/start.js" console
-  ;;
-  (node3) geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node3/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/home/node3/work/geth_dependencies/password.txt" --preload "/home/node3/work/geth_dependencies/start.js" console
-  ;;
-  (node4) geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node4/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/home/node4/work/geth_dependencies/password.txt" --preload "/home/node4/work/geth_dependencies/start.js" console
-  ;;
-  (node5) geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/node5/myPrivateChain" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password "/home/node5/work/geth_dependencies/password.txt" --preload "/home/node5/work/geth_dependencies/start.js" console
-  ;;
-esac
+geth --identity "myPrivateNode" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir ~/myPrivateChain --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1984 --nat "any" --unlock 0 --password ~/work/geth_dependencies/password.txt --preload ~/work/geth_dependencies/start.js console
