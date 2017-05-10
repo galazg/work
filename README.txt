@@ -10,6 +10,13 @@ Example:
 var port = "8085";
 var host = "http://192.168.0.102:" + port;
 
+geth_dependencies/start.js
+A script that runs when geth is launched (if the --preload parameter is specified).
+It loads a function to run the miner only when there are pending transactions.
+Also it instantiates the contract used by the demo, in case it is necessary to
+interact with the contract directly from the geth console.
+
+
 
 ----ETHEREUM PRIVATE NETWORK-----------------------------------------------------
 server/geth_launch is the script to run geth. Important parameters are: 
