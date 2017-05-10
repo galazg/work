@@ -133,6 +133,9 @@ $('#owner4').on('click', function (e) {
 //   register_device_selected =3;
 // });
 
+
+//This listener has been moved to admin.js
+/*
 $('#mreset_all').on('click', function (e) {
     alert("All devices rights will be reset to 0");
     register("user1",1,0);
@@ -144,7 +147,7 @@ $('#mreset_all').on('click', function (e) {
     register("user1",3,0);
     register("user2",3,0);
     register("user3",3,0);
-});
+});*/
 
 
 // $('#mvalidate').on('click', function (e) {

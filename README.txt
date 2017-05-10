@@ -18,6 +18,16 @@ interact with the contract directly from the geth console.
 
 
 
+----CONTRACT FOR THE DEMO--------------------------------------------------------
+token2_philips_contract.txt contains the source code of the contract. 
+token2_notes.txt contains the deployment code, ABI interface and method hashes.
+Note: The deployment code and ABI were obtained from an online compiler
+https://remix.ethereum.org/
+The contract address must be specified in server/config.txt 
+10 May 17 deployed at 0x6e6f3c389179214600c251bdc4418ba10388fc39.
+
+
+
 ----ETHEREUM PRIVATE NETWORK-----------------------------------------------------
 server/geth_launch is the script to run geth. Important parameters are: 
 --datadir, path where the blockchain database is stored.

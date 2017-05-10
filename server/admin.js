@@ -1,6 +1,4 @@
 function topup(user,amount){
-  //var user = document.getElementById("user").value;
-  //var amount = document.getElementById("amount").value;
   command_obj.command = "topup"
   command_obj.user = user;
   command_obj.tokens = amount;
@@ -9,14 +7,30 @@ function topup(user,amount){
     return;
   }
   var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", host, true);
+  xhttp.open("POST", host, true);  //host is defined in block_interface.js
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var obj = JSON.parse(this.responseText);
       //console.log(obj.result)
-      //document.getElementById("status").style.font = "italic bold 20px arial,serif";
-      //document.getElementById("status").innerHTML = amount + " tokens have been sent to user " + user;
+    }
+  };
+  var data = JSON.stringify(command_obj);
+  xhttp.send(data);
+}
+
+
+function reset(user){
+  command_obj.command = "reset"
+  command_obj.user = user;
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", host, true);  //host is defined in block_interface.js
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      var obj = JSON.parse(this.responseText);
+      console.log(obj.result)
     }
   };
   //xhttp.open("GET", "http://localhost:8085/topup&" + user + "=" + amount, true);
@@ -41,4 +55,28 @@ $('#mtopup').on('click', function (e) {
 }); //topup listener
 
 
-});
+$('#mreset').on('click', function (e) {
+  var user = document.getElementById("user").value;
+
+  if(user==""){
+    alert("Missing data");
+  }
+  else{
+    alert("The rights of " + user + " will be reset");
+    reset(user);
+  }
+}); //reset listener
+
+
+$('#mreset_all').on('click', function (e) {
+    alert("The rights of all users will be reset");
+    reset("user1");
+    reset("user2");
+    reset("user3");
+    reset("user4");
+}); //reset_all listener
+
+
+}); //
+
+
