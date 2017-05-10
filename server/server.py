@@ -16,18 +16,21 @@ tcp_port = 8085
 #lamp1 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/1/state'
 #lamp2 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/2/state'
 #lamp3 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/3/state'
-bridge_address = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/'
+#bridge_address = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/'
+
 hue_values = {'yellow':'10000', 'red':'0', 'blue':'47000'}
 
 print 'Running server on port ' + str(tcp_port)
 
-#Load contract address from file
-f = open ( 'contracts.txt' , 'r')
-contracts = [ line.strip() for line in f]
-pcoin_contract_address = contracts[0] 
+#Load contract address from file. TODO: read from a JSON file
+f = open ( 'config.txt' , 'r')
+config = [ line.strip() for line in f]
+pcoin_contract_address = config[0] 
+bridge_address = config[1]
 print 'Contract address: ' + pcoin_contract_address
+print 'Hue bridge address: ' + bridge_address
 
-#Query blockchain lamp1for account numbers of users
+#Query blockchain for account numbers of users
 data = '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
 r = requests.post(host, data=data)
 accounts = json.loads(r.text)

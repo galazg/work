@@ -1,6 +1,6 @@
 pkill geth
-ssh node2@192.168.0.202 "pkill geth"
-ssh node3@192.168.0.203 "pkill geth"
-ssh node4@192.168.0.204 "pkill geth"
-ssh node5@192.168.0.205 "pkill geth"
+ssh node2@192.168.0.106 "pkill geth"
+ssh node3@192.168.0.105 "pkill geth"
+ssh node4@192.168.0.103 "pkill geth"
+ssh node5@192.168.0.104 "pkill geth"
 
