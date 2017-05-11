@@ -5,28 +5,30 @@ import SocketServer
 from BaseHTTPServer import BaseHTTPRequestHandler
 import requests
 from os import curdir, sep
-import urlparse, json
+import urlparse, json, platform
+from pprint import pprint
+from subprocess import call
 
-host = 'http://localhost:8001'  #entry point of geth node, running on the same computer as the web server
-tcp_port = 8085
 
-#To do: read lamp addresses from from file
+prefix = '~/' if platform.system()=='Linux' else 'c:/'
+with open('config.json') as data_file:    
+    parameters = json.load(data_file)
 
-#lamp_address = {'1':'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/1/state', '2':'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/2/state', '3':'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/3/state'}
-#lamp1 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/1/state'
-#lamp2 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/2/state'
-#lamp3 = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/3/state'
-#bridge_address = 'http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/'
+#pprint(parameters)
 
+host = parameters["blockchain_rpc"]
+tcp_port = parameters["server_tcp_port"]
+pcoin_contract_address = parameters["contract_address"]
+bridge_address = parameters["bridge_address"]
 hue_values = {'yellow':'10000', 'red':'0', 'blue':'47000'}
 
 print 'Running server on port ' + str(tcp_port)
 
 #Load contract address from file. TODO: read from a JSON file
-f = open ( 'config.txt' , 'r')
-config = [ line.strip() for line in f]
-pcoin_contract_address = config[0] 
-bridge_address = config[1]
+#f = open ( 'config.txt' , 'r')
+#config = [ line.strip() for line in f]
+#pcoin_contract_address = config[0] 
+#bridge_address = config[1]
 print 'Contract address: ' + pcoin_contract_address
 print 'Hue bridge address: ' + bridge_address
 
@@ -35,30 +37,15 @@ data = '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
 r = requests.post(host, data=data)
 accounts = json.loads(r.text)
 accounts = accounts["result"]
+print "Accounts available in local geth node:"
 for user in accounts:
     print user
 
-#user1 = accounts[0]
-#user2 = accounts[1]
-#user3 = accounts[2]
-#user4 = accounts[3]
-#print user1
-#print user2
-#print user3
-#print user4
 
-#Define transaction sender
-#sender = user1
 sender = accounts[0]
 
 #To do: load method hashes from file
 method_hash = {'validate':'0x98e0ae14000000000000000000000000', 'topup':'0x05ab421d000000000000000000000000', 'check_money': '0xa3825d99000000000000000000000000', 'register':'0xf9454f3f000000000000000000000000', 'reset':'0x6b8ab97d000000000000000000000000'}
-#validate_method_hash = '0x98e0ae14000000000000000000000000' #changed!
-#topup_method_hash = '0x05ab421d000000000000000000000000'
-#check_money_method_hash = '0xa3825d99000000000000000000000000'
-#register_method_hash = '0xf9454f3f000000000000000000000000' #changed!
-#reset_method_hash = '0x6b8ab97d000000000000000000000000'
-
 
 #Define the mimetypes
 mimetypes = {'.html':'text/html', '.css':'text/css', '.js':'application/javascript', '.jpeg':'image/jpeg', '.ico':'image/x-icon'}
@@ -87,17 +74,6 @@ def getAddress(user):
         print "User " + user + " has account " + account
     return account;
 
-    #if user == 'user1':
-    #    return user1;
-    #elif user == 'user2':
-    #    return user2;
-    #elif user == 'user3':
-    #    return user3;
-    #elif user == 'user4':
-    #    return user4;
-    #else:
-    #    return '0x0000000000000000000000000000000000000000';
-
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
 
@@ -105,29 +81,6 @@ class MyHandler(BaseHTTPRequestHandler):
             self.path = '/index.html'
 
         mimetype = set_mimetype(self.path)
-
-        #if self.path.find(".css") > 0:
-        #    mimetype = 'text/css'
-        #elif self.path.find(".js") > 0:
-        #    mimetype = 'application/javascript'
-        #elif self.path.find(".jpeg") > 0:
-        #    mimetype = 'image/jpeg'
-        #else:
-        #    mimetype = 'text/html'    
-
-#        if self.path =='/':
-#            self.path = '/index.html'
-#            mimetype='text/html'
-#        if self.path =='/bootstrap/css/bootstrap.min.css':
-#            mimetype='text/css'
-#        if self.path =='/bootstrap/js/bootstrap.min.js':
-#            mimetype='application/javascript'
-#        if self.path =='/block_interface.js':
-#            mimetype='application/javascript'
-#        if self.path =='/hue/lamp-icons.css':
-#            mimetype='text/css'
-#        if self.path =='/hue/lamp-icons.jpeg':
-#            mimetype='image/jpeg'
 
         f = open(curdir + sep + self.path, "rb")
         print curdir + sep + self.path
