@@ -1,5 +1,5 @@
 {
-  "contract_address": "0xaa4c4bdccf09e209ddcc4990acca5530fb535a0c",
+  "contract_address": "0x190a46029ff1693bbfedda664fd49fdd926f8ca1",
   "bridge_address": "http://192.168.0.100/api/tNpRZeZwa9QzHrEebHws8wXYT10SzEYlzQRXUOdO/lights/",
   "blockchain_rpc": "http://localhost:8545",
   "server_tcp_port": 8085  
