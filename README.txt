@@ -1,4 +1,5 @@
 29 June 2017
+Added the launch script ~/work/server/rungeth.py.
 The "Skeletal demo" contract source files were added to the ~/work/contract  folder.
 These files are needed in case the contract needs to be redeployed.
 The scripts to launch geth in the rest of the NUCs from NUC1 have not been updated.
@@ -66,9 +67,10 @@ The contract address must be specified in server/config.json
 
 ----LAUNCH GETH NODE-----------------------------------------------------
 The contract is deployed in datadir ~/fulldemoblockchain
-Follow the instructions in the "Running the Skeletal demo" section in this file.
-Note that the Skeletal demo
-
+To launch the geth node, run the following script:
+$ python ~/work/server/rungeth.py
+Make sure the appropriate parameters are defined in:
+~/work/geth_dependencies/geth_parameters.json
 
 
 
@@ -79,3 +81,7 @@ Note that the Skeletal demo
     If it has no balance, run > miner.start() for a few minutes, then > miner.stop()
     Make sure that the mining process is not interrupted prematurely by any scripts, for instance,
     the script to only mine when there are pending transactions.
+* geth console does not launch
+  - Check if there is a "failed to unlock account" message in the terminal. 
+    Make sure the password of the coinbase account is correct in the password file 
+    specified in ~/work/geth_dependencies/geth_parameters.json

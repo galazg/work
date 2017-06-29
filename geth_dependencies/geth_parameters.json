@@ -1,0 +1,28 @@
+{
+  "datadir": "fulldemoblockchain",
+  "dependencies": "work/geth_dependencies/",
+  "networkid": 1985,
+  "loadscript": {
+    "run": true,
+    "filename": "start.js"
+  },
+  "unlock": {
+    "run": true,
+    "filename": "password.txt"
+  },
+  "rpc": {
+    "run": true,
+    "rpcapi": "db,eth,net,web3,personal",
+    "rpccorsdomain": "*"
+  },
+  "miner": {
+    "run": false
+  },
+  "logfile": {
+    "run": false
+  },
+  "initialize": {
+    "run": false,
+    "filename": "CustomGenesis.json"
+  }
+}
