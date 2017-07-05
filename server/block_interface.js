@@ -56,7 +56,7 @@ $(function(){
 
 $('#owner1').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Leszek";
-  document.getElementById("status_label").innerHTML = "No new information to display";
+  //document.getElementById("status_label").innerHTML = "No new information to display";
 
   owner_selected=1;
   reset_checks(1);
@@ -69,10 +69,12 @@ $('#owner1').on('click', function (e) {
   load_register_checks("user1",2);
   load_register_checks("user1",3);
   lamps_off();
+    checkbalance("user1");
+
 });
 $('#owner2').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Fernando";
-  document.getElementById("status_label").innerHTML = "No new information to display";
+ // document.getElementById("status_label").innerHTML = "No new information to display";
   owner_selected=2;
   reset_checks(1);
   reset_checks(2);
@@ -84,11 +86,12 @@ $('#owner2').on('click', function (e) {
   load_register_checks("user2",2);
   load_register_checks("user2",3);
   lamps_off();
+  checkbalance("user2");
 
 });
 $('#owner3').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Mike";
-  document.getElementById("status_label").innerHTML = "No new information to display";
+ // document.getElementById("status_label").innerHTML = "No new information to display";
   owner_selected=3;
   reset_checks(1);
   reset_checks(2);
@@ -100,11 +103,13 @@ $('#owner3').on('click', function (e) {
   load_register_checks("user3",2);
   load_register_checks("user3",3);
   lamps_off();
+    checkbalance("user3");
+
 
 });
 $('#owner4').on('click', function (e) {
   document.getElementById("owner_dropdown").innerHTML = "Owner: Giovanni";
-  document.getElementById("status_label").innerHTML = "No new information to display";
+//  document.getElementById("status_label").innerHTML = "No new information to display";
   owner_selected=4;
   reset_checks(1);
   reset_checks(2);
@@ -116,6 +121,8 @@ $('#owner4').on('click', function (e) {
   load_register_checks("user4",2);
   load_register_checks("user4",3);
   lamps_off();
+    checkbalance("user4");
+
 
 });
 
@@ -629,6 +636,30 @@ function load_register_checks(user,device){
 
 
 
+function checkbalance(user){
+  command_obj.command = "checkbalance";
+  command_obj.user = user;
+  command_obj.level = "0";
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", host, true);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      var obj = JSON.parse(this.responseText);
+      console.log(obj.result);
+
+//      if(obj.result == "already registered") {
+        document.getElementById("status_label").innerHTML = "Current balance: " + obj.balance;
+//      }*/
+    }
+  };
+  var data = JSON.stringify(command_obj);
+  xhttp.send(data);
+
+}
+
+
 function register(user,device,level){
   //var user = document.getElementById("user").value;
   //var level = document.getElementById("level").value;
@@ -684,6 +715,10 @@ function load(){
    set_lamps(3,"white");
 
    lamps_off();
+
+
+   document.getElementById("status_label").style.font = "italic bold 20px arial,serif";
+
 
 }
 

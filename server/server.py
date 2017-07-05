@@ -106,6 +106,7 @@ class MyHandler(BaseHTTPRequestHandler):
         print "user indicated is " + data["user"]
         user_address = getAddress(data["user"])
 
+
         if command == "validate":
             #deviceid_param = padded_hex(int(deviceid,64))
             deviceid_param = '000000000000000000000000000000000000000000000000000000000000000' + deviceid
@@ -213,6 +214,17 @@ class MyHandler(BaseHTTPRequestHandler):
             else:
                 print "User has no money"
                 self.wfile.write('{"result":"' + 'no money' +  '"}')
+        
+        elif command == "checkbalance":
+            level_param = padded_hex(int(level),64)
+            #Check money first
+            rpc_data = method_hash["check_money"] + user_address[2:len(user_address)] + level_param[2:len(level_param)]
+            data = '{"jsonrpc":"2.0","method":"eth_call","params":[{"to": "' + pcoin_contract_address + '", "data": "'+ rpc_data +'"}, "latest"],"id":1}'
+            r = requests.post(host, data=data)
+            print r.text
+            contract_response = json.loads(r.text)
+            has_money = int(contract_response["result"],0)        
+            self.wfile.write('{"balance":"'+ str(has_money)  +'"}')
 
 
         elif command == "reset":

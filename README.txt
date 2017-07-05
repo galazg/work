@@ -20,8 +20,9 @@ The scripts to launch geth in the rest of the NUCs from NUC1 have not been updat
    - The coinbase account has ether. Use the command:
      > eth.getBalance(personal.listAccounts[0])
 3. Run "python ~/work/server/server.py" 
-4. To run the demonstrator page, open a browser window http://ip_where_server_py_runs:server_tcp_port
-   where server_tcp_port is the port specified in the file server/config.json
+4. To run the demonstrator page, open a browser window http://host:server_tcp_port
+   where host is the ip where server.py is running and 
+   server_tcp_port is the port specified in the file server/config.json
 5. To run the administrative page (to load tokens into owner accounts), 
    open a browser window http://host:server_tcp_port/admin.html
    where host is the ip of the machine where server.py is running and
@@ -66,12 +67,12 @@ The contract address must be specified in server/config.json
 
 
 ----LAUNCH GETH NODE-----------------------------------------------------
-The contract is deployed in datadir ~/fulldemoblockchain
+The database where the contract is deployed is (datadir): ~/fulldemoblockchain
 To launch the geth node, run the following script:
 $ python ~/work/server/rungeth.py
 Make sure the appropriate parameters are defined in:
 ~/work/geth_dependencies/geth_parameters.json
-
+NOTE: NEW SCRIPTS ARE REQUIRED TO LAUNCH THE REST OF THE NODES REMOTELY!
 
 
 ----TROUBLESHOOTING------------------------------------------------------------
